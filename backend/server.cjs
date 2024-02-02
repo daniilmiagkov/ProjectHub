@@ -28,6 +28,15 @@ server.get('/', function(req, res) {
   })
 })
 
+server.get('/database/listSubjects', (req, res) => {
+  res.set('Content-Type', 'application/json');
+  
+  fs.readFile(projectHub + '\\backend\\database\\listSubjects.json', (err, data) => {
+    res.send(data);
+    
+  })
+})
+
 server.listen(3000, () => {
   console.log('listening on port http://localhost:3000')
 })

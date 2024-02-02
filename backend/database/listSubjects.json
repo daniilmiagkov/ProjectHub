@@ -1,0 +1,55 @@
+{
+  "subjects": [
+    {
+      "subjectName": "Математика",
+      "tasks": [
+        {
+          "taskNumber": 1,
+          "description": "Решить квадратное уравнение."
+        },
+        {
+          "taskNumber": 2,
+          "description": "Найти производную функции."
+        },
+        {
+          "taskNumber": 3,
+          "description": "Исследовать на возрастание/убывание функцию."
+        }
+      ]
+    },
+    {
+      "subjectName": "Программирование",
+      "tasks": [
+        {
+          "taskNumber": 1,
+          "description": "Написать программу с использованием циклов."
+        },
+        {
+          "taskNumber": 2,
+          "description": "Реализовать алгоритм сортировки."
+        },
+        {
+          "taskNumber": 3,
+          "description": "Создать простое веб-приложение."
+        }
+      ]
+    },
+    {
+      "subjectName": "Базы данных",
+      "tasks": [
+        {
+          "taskNumber": 1,
+          "description": "Создать схему базы данных."
+        },
+        {
+          "taskNumber": 2,
+          "description": "Написать SQL-запрос для выборки данных."
+        },
+        {
+          "taskNumber": 3,
+          "description": "Оптимизировать структуру таблицы."
+        }
+      ]
+    }
+  ]
+}
