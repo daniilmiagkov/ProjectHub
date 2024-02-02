@@ -1,17 +1,17 @@
 :root {
-  /* main colors */
-  $color-primary: #4D84F4;
-  $color-primary-light: lighten($color-primary, 15%);
-  --color-primary-dark: color-mod(var(--color-primary) shade(15%));
-  --color-primary-bg: color-mod(var(--color-primary) alpha(20%));
+  /* Основные цвета */
+  --color-primary: #4D84F4;
+  --color-primary-light: lighten(var(--color-primary), 15%);
+  --color-primary-dark: darken(var(--color-primary), 15%);
+  --color-primary-bg: rgba(var(--color-primary), 0.2);
 
   --color-accent: #f5414f;
-  --color-accent-light: color-mod(var(--color-accent) tint(15%));
-  --color-accent-dark: color-mod(var(--color-accent) shade(10%));
-  --color-accent-bg: color-mod(var(--color-accent) alpha(20%));
+  --color-accent-light: lighten(var(--color-accent), 15%);
+  --color-accent-dark: darken(var(--color-accent), 10%);
+  --color-accent-bg: rgba(var(--color-accent), 0.2);
 
-// shades - generated using chroma.js - 12 steps
---black: #1d1d21;
+  /* Оттенки - сгенерировано с использованием chroma.js - 12 шагов */
+  --black: #1d1d21;
   --gray-10: #2e2e31;
   --gray-6: #7b7a7d;
   --gray-4: #a5a5a6;
@@ -20,12 +20,12 @@
   --gray-1: #e8e7e8;
   --white: white;
 
-  /* feedback */
+  /* Обратная связь */
   --color-success: #88c459;
   --color-error: #f5414f;
   --color-warning: #ffd137;
 
-  /* typography */
+  /* Типографика */
   --color-text: var(--gray-10);
   --color-text-heading: var(--black);
   --color-text-subtle: var(--gray-6);
@@ -34,26 +34,26 @@
   --color-mark: var(--color-accent-bg);
   --color-blockquote-border: var(--gray-2);
 
-  /* border */
+  /* Границы */
   --color-border: var(--gray-2);
 
-  /* body */
+  /* Тело */
   --color-body: var(--white);
 
-  /* forms */
+  /* Формы */
   --form-element-border: var(--color-border);
   --form-element-border-focus: var(--color-primary);
   --form-element-border-error: var(--color-error);
   --form-element-bg: var(--white);
   --form-text-placeholder: var(--gray-4);
 
-  /* buttons */
+  /* Кнопки */
   --btn-primary-bg: var(--color-primary);
   --btn-primary-hover: var(--color-primary-light);
   --btn-primary-active: var(--color-primary-dark);
   --btn-primary-label: var(--white);
 
-  /* icons */
+  /* Иконы */
   --color-icon-primary: var(--gray-4);
   --color-icon-secondary: inherit;
 }
