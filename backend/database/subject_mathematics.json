@@ -1,17 +1,28 @@
 {
-  "subjectName": "Математика",
-  "tasks": [
+  "Title": "Математика",
+  "Labs": [
     {
-      "taskNumber": 1,
-      "description": "Решить квадратное уравнение."
-    },
+      "Title": "Лабораторная работа 1",
+      "File": "lab1",
+      "Tasks": [
+        {
+          "Title": "Задача 1",
+          "Done": false
+        },
+        {
+          "Title": "Задача 2",
+          "Done": true
+        }
+      ],
+      "Date": "2024-02-03T10:00:00",
+      "Subject": "Математика",
+      "Done": false
+    }
+  ],
+  "Tasks": [
     {
-      "taskNumber": 2,
-      "description": "Найти производную функции."
-    },
-    {
-      "taskNumber": 3,
-      "description": "Исследовать на возрастание/убывание функцию."
+      "Title": "Домашнее задание 1",
+      "Done": false
     }
   ]
 }
