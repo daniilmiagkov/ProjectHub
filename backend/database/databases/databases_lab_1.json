@@ -1,0 +1,11 @@
+{
+  "Title": "Лабораторная работа 1",
+  "File": "lab1",
+  "Tasks": [
+    "task_databases_lab1_1.json",
+    "task_databases_lab1_2.json"
+  ],
+  "Date": "2024-02-03T16:00:00",
+  "Subject": "Базы данных",
+  "Done": false
+}

@@ -1,0 +1,10 @@
+{
+  "Title": "Базы данных",
+  "Labs": [
+   "labs_databases_1.json",
+   "labs_databases_2.json"
+  ],
+  "Tasks": [
+    "task_databases_1.json"
+  ]
+}
