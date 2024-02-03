@@ -1,18 +1,17 @@
 <template>
   <div class="all-to-do-list">
-    <button class="button all-to-do-list__button"
-        @click="getListSubjects"></button>
-    <div class="subject" v-for="item in listSubjects" :key="item.id">
-      {{ item.subjectName }}
-    </div>
+    <ToDoList
+        v-for="item in listSubjects"
+        v-model:path="item.name"/>
   </div>
 </template>
 
 <script setup lang="ts">
 import {ref} from "vue";
+import ToDoList from "./ToDoList.vue";
 let listSubjects = ref([]);
 function getListSubjects() {
-  fetch('http://localhost:3000/database/listSubjects')
+  fetch('http://localhost:3000/database/nameSubjects')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Ошибка HTTP: ${response.status}`);
@@ -22,8 +21,8 @@ function getListSubjects() {
       .then((data) => {
         // Проверяем, что данные не пусты, прежде чем с ними работать
         if (data && Object.keys(data).length > 0) {
-          listSubjects.value = data.subjects
-          console.log(data.subjects);
+          listSubjects.value = data.names
+          console.log(data.names);
           // Теперь можешь обрабатывать данные
         } else {
           console.error('Получены пустые данные');
@@ -31,19 +30,16 @@ function getListSubjects() {
       })
       .catch((error: Error) => console.log(error));
 }
+getListSubjects()
 </script>
 
 <style scoped lang="scss">
 @import "../css/colors.scss";
 .all-to-do-list {
-  display: flex;
-}
-
-.subject {
-  background-color: red;
-}
-
-.all-to-do-list__button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
 
 }
 </style>

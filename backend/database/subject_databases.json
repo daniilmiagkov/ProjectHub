@@ -1,0 +1,17 @@
+{
+  "subjectName": "Базы данных",
+  "tasks": [
+    {
+      "taskNumber": 1,
+      "description": "Создать схему базы данных."
+    },
+    {
+      "taskNumber": 2,
+      "description": "Написать SQL-запрос для выборки данных."
+    },
+    {
+      "taskNumber": 3,
+      "description": "Оптимизировать структуру таблицы."
+    }
+  ]
+}

@@ -3,11 +3,15 @@
 import HelloWorld from '@components/HelloWorld.vue'
 */
 import AllToDoList from '@components/AllToDoList.vue'
+import SingleToDoList from "./components/SingleToDoList.vue";
+import AboutTask from "./components/EditTask.vue";
 </script>
 
 <template>
-  <div>
-    <AllToDoList></AllToDoList>
+  <div class="app">
+    <SingleToDoList/>
+    <AllToDoList/>
+    <AboutTask/>
   </div>
 </template>
 
@@ -15,12 +19,14 @@ import AllToDoList from '@components/AllToDoList.vue'
 @import "./css/style.css";
 
 body {
-  margin: 0;
-  display: flex;
-  place-items: center;
-  min-width: 320px;
   min-height: 100vh;
 }
 
+.app {
+  margin: 20px;
+  display: grid;
+  justify-items: center;
+
+}
 
 </style>

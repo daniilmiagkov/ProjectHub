@@ -1,0 +1,17 @@
+{
+  "subjectName": "Математика",
+  "tasks": [
+    {
+      "taskNumber": 1,
+      "description": "Решить квадратное уравнение."
+    },
+    {
+      "taskNumber": 2,
+      "description": "Найти производную функции."
+    },
+    {
+      "taskNumber": 3,
+      "description": "Исследовать на возрастание/убывание функцию."
+    }
+  ]
+}
