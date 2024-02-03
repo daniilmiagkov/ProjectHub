@@ -28,7 +28,16 @@ server.get('/', function(req, res) {
   })
 })
 
-server.get('/database/listSubjects', (req, res) => {
+server.get('/database/nameSubjects', (req, res) => {
+  res.set('Content-Type', 'application/json');
+  
+  fs.readFile(projectHub + '\\backend\\database\\nameSubjects.json', (err, data) => {
+    res.send(data);
+    
+  })
+})
+
+server.get(new RegExp('/database/subject_\w+.json'), (req, res) => {
   res.set('Content-Type', 'application/json');
   
   fs.readFile(projectHub + '\\backend\\database\\listSubjects.json', (err, data) => {
@@ -36,6 +45,7 @@ server.get('/database/listSubjects', (req, res) => {
     
   })
 })
+
 
 server.listen(3000, () => {
   console.log('listening on port http://localhost:3000')
