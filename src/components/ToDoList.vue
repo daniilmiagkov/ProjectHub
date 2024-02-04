@@ -4,8 +4,7 @@
     <div class="to-do-list__list" >
       <ToDoListTask
           v-for="item in list"
-          v-model:description="item.description"
-          v-model:number="item.taskNumber"
+          v-model:path="item.path"
       />
     </div>
   </div>
@@ -25,8 +24,8 @@ function show(data) {
 }
 
 function getSubjectFromPath() {
-  fetch('http://localhost:3000/database/'
-      + 'subject_' + props.path + '.json' )
+  fetch(
+      `http://localhost:3000/database/db_${props.path}/${props.path}_subject.json` )
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -36,11 +35,11 @@ function getSubjectFromPath() {
         }
       })
       .then((data) => {
-        list.value = data.tasks;
+        list.value = data.Labs;
+        console.log(data.Labs)
       })
       .catch((error) => console.log(error))
 }
-console.log(props.path)
 getSubjectFromPath();
 
 </script>
@@ -51,15 +50,27 @@ getSubjectFromPath();
   border: 1px solid black;
   border-radius: 10px;
   /*
+  max-width: 250px;
+  */
+  min-height: 150px;
+  width: 250px;
+  /*
+
   margin: 20px;
   */
 }
 
 .to-do-list__list {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border: 1px solid black;
+  border-radius: 10px;
+  overflow: auto;
+  width: 90%;
+  margin: 0 auto;
+  height: 60%;
+}
 
+.to-do-list__list::-webkit-scrollbar {
+  width: 0;
 }
 
 .to-do-list__title {

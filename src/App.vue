@@ -1,9 +1,6 @@
 <script setup lang="ts">
-/*
-import HelloWorld from '@components/HelloWorld.vue'
-*/
 import AllToDoList from '@components/AllToDoList.vue'
-import SingleToDoList from "./components/SingleToDoList.vue";
+import SingleToDoList from "./components/TodayList.vue";
 import AboutTask from "./components/EditTask.vue";
 </script>
 

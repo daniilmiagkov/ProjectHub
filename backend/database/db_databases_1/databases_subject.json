@@ -1,0 +1,16 @@
+{
+  "Title": "Базы данных",
+  "Labs": [
+    {
+      "path": "db_databases/databases_lab_1.json"
+    },
+    {
+      "path": "db_databases/databases_lab_2.json"
+    }
+  ],
+  "Tasks": [
+    {
+      "path": "db_databases/databases_task_1.json"
+    }
+  ]
+}

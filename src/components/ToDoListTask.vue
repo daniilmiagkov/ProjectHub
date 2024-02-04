@@ -1,25 +1,44 @@
 <template>
   <button class="to-do-list__task button">
-    <span class="to-do-list__number to-do-list__item">{{number}}</span>
-    <span class="to-do-list__description to-do-list__item">{{description}}</span>
-    <span class="to-do-list__date to-do-list__item">19.02.2024</span>
+    <span class="to-do-list__number to-do-list__item">{{lab.File}}</span>
+    <span class="to-do-list__date to-do-list__item">{{new Date(lab.Date).toLocaleDateString('ru-RU', {year: 'numeric', month: 'long', day: 'numeric',})}}</span>
   </button>
 </template>
 
 <script setup lang="ts">
-import {defineProps} from "vue";
+import {defineProps, ref} from "vue";
+
+const lab = ref({});
 
 const props = defineProps({
-  number: Number,
-  description: String,
+  path: String
 })
+
+function getSubjectFromPath() {
+  fetch(
+      `http://localhost:3000/database/${props.path}` )
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        else {
+          console.log(response)
+        }
+      })
+      .then((data) => {
+        lab.value = data;
+        console.log(data)
+      })
+      .catch((error) => console.log(error))
+}
+getSubjectFromPath();
 </script>
 
 <style scoped lang="scss">
 .to-do-list__task {
   background-color: #ffffff;
   width: 90%;
-  height: 50px;
+  height: 40px;
   margin: 0 auto 8px;
   padding: 4px 10px;
   display: flex;
