@@ -37,14 +37,27 @@ server.get('/database/nameSubjects', (req, res) => {
   })
 })
 
-server.get(new RegExp('/database/subject_\w+.json'), (req, res) => {
+server.get(new RegExp('/database/db_\\w+/\\w+_subject.json'), (req, res) => {
   res.set('Content-Type', 'application/json');
   
-  fs.readFile(projectHub + '\\backend\\database\\listSubjects.json', (err, data) => {
-    res.send(data);
-    
-  })
-})
+  // Извлекаем параметры из пути запроса
+  const [, dbName, subject] = req.path.match(/\/database\/(db_\w+)\/(\w+)_subject.json/);
+  
+  // Собираем путь к файлу на основе параметров
+  const filePath = `${projectHub}/backend/database/${dbName}/${subject}_subject.json`;
+  
+  fs.readFile(filePath, (err, data) => {
+    if (err) {
+      // Обработка ошибок, например, если файл не найден
+      console.error('Ошибка чтения файла:', err);
+      res.status(500).send('Internal Server Error');
+    } else {
+      res.send(data);
+      console.log(data);
+    }
+  });
+});
+
 
 
 server.listen(3000, () => {
