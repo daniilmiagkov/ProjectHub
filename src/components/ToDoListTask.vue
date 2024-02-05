@@ -38,12 +38,13 @@ getSubjectFromPath();
 .to-do-list__task {
   background-color: #ffffff;
   width: 90%;
-  height: 40px;
+  height: 34px;
+  font-weight: bold;
   margin: 0 auto 8px;
   padding: 4px 10px;
   display: flex;
   border-radius: 10px;
-  border: 1px black solid;
+  //border: 1px black solid;
   justify-content: space-between;
   align-items: center;
 }
