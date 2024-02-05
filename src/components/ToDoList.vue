@@ -3,6 +3,7 @@
     <h1 class="to-do-list__title">{{path}}</h1>
     <div class="to-do-list__list" >
       <ToDoListTask
+
           v-for="item in list"
           v-model:path="item.path"
       />
@@ -18,10 +19,6 @@ const props = defineProps({
 })
 
 let list = ref([]);
-
-function show(data) {
-  alert(data)
-}
 
 function getSubjectFromPath() {
   fetch(
@@ -42,31 +39,26 @@ function getSubjectFromPath() {
 }
 getSubjectFromPath();
 
+
 </script>
 
 <style scoped lang="scss">
 .to-do-list {
-  background-color: #ffffff;
-  border: 1px solid black;
+  background-color: rgb(169, 196, 238);
+  //border: 1px solid black;
   border-radius: 10px;
-  /*
-  max-width: 250px;
-  */
-  min-height: 150px;
-  width: 250px;
-  /*
-
-  margin: 20px;
-  */
+  min-height: 200px;
+  //width: 250px;
 }
 
 .to-do-list__list {
-  border: 1px solid black;
+  //border: 1px solid black;
   border-radius: 10px;
   overflow: auto;
   width: 90%;
   margin: 0 auto;
-  height: 60%;
+  height: 70%;
+  padding: 10px;
 }
 
 .to-do-list__list::-webkit-scrollbar {
