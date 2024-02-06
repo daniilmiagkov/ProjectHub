@@ -1,15 +1,15 @@
 <script setup lang="ts">
 import AllToDoList from '@components/AllToDoList.vue'
-import AboutTask from "./components/EditTask.vue";
 import TodayList from "./components/TodayList.vue";
+import EditTask from "./components/EditTask.vue";
 
 </script>
 
 <template>
   <div class="app">
     <TodayList/>
+    <EditTask/>
     <AllToDoList/>
-    <AboutTask/>
   </div>
 </template>
 
@@ -23,7 +23,8 @@ body {
   margin: 20px;
   display: grid;
   justify-items: center;
-  row-gap: 20px;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit,minmax(700px, 1fr));
 }
 
 </style>

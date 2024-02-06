@@ -25,8 +25,9 @@ let list = ref([]);
   padding: 10px;
   width: 100%;
   background-color: rgb(169, 196, 238);
-  height: 200px;
+  height: 600px;
   border-radius: 10px;
+
 }
 
 
