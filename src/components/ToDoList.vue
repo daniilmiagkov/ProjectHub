@@ -1,19 +1,22 @@
 <template>
   <div class="to-do-list">
     <h1 class="to-do-list__title">{{path}}</h1>
-    <div class="to-do-list__list" >
+    <List></List>
+    <List></List>
+    <List></List>
+<!--    <div class="to-do-list__list" >
       <ToDoListTask
-
-          v-for="item in list"
-          v-model:path="item.path"
+        v-for="item in list"
+        v-model:path="item.path"
       />
-    </div>
+    </div>-->
   </div>
 </template>
 
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
 import ToDoListTask from "./ToDoListTask.vue";
+import List from "./List.vue";
 const props = defineProps({
   path: String,
 })
@@ -47,7 +50,7 @@ getSubjectFromPath();
   background-color: rgb(169, 196, 238);
   //border: 1px solid black;
   border-radius: 10px;
-  min-height: 200px;
+  //min-height: 200px;
   //width: 250px;
 }
 
@@ -57,7 +60,7 @@ getSubjectFromPath();
   overflow: auto;
   width: 90%;
   margin: 0 auto;
-  height: 70%;
+  //height: 70%;
   padding: 10px;
 }
 
