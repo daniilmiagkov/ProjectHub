@@ -30,6 +30,9 @@
   padding: 10px;
   border-radius: 10px;
   height: 400px;
+  flex-shrink: 0;
+  /*max-width: 400px;*/
+
 
 }
 .edit-task__form {

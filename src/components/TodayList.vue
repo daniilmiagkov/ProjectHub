@@ -22,10 +22,10 @@ let list = ref([]);
 <style scoped>
 
 .today-list {
-  padding: 10px;
+  padding: 10px 10px 20px;
   width: 100%;
   background-color: rgb(169, 196, 238);
-  height: 600px;
+  /*height: 600px;*/
   border-radius: 10px;
 
 }
