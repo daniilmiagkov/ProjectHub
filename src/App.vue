@@ -8,7 +8,7 @@ import EditTask from "./components/EditTask.vue";
 <template>
   <div class="app">
     <TodayList/>
-    <EditTask/>
+<!--    <EditTask/>-->
     <AllToDoList/>
   </div>
 </template>
@@ -24,7 +24,7 @@ body {
   display: grid;
   justify-items: center;
   gap: 20px;
-  grid-template-columns: repeat(auto-fit,minmax(700px, 1fr));
+  grid-template-columns: repeat(auto-fit,minmax(500px, 1fr));
 }
 
 </style>
