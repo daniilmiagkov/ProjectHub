@@ -1,4 +1,4 @@
-<template>
+<template xmlns="http://www.w3.org/1999/html">
   <div class="edit-task">
     <h1 class="edit-task__title">Edit</h1>
     <form class="edit-task__form">
@@ -8,9 +8,10 @@
       </label>
       <label class="input" for="input-file">
         <span class="input__title">file</span>
-        <input class="input__input input_file" id="input-file" type="file"/>
-        <span class="button-file"></span>
+        <input class="input__input input_file" id="input-file" type="file" @change="loadFile"/>
+        <div class="button-file" id="button-file"></div>
       </label>
+
       <label class="input" for="input-date">
         <span class="input__title">date</span>
         <input class="input__input" id="input-date" type="date"/>
@@ -20,6 +21,24 @@
 </template>
 
 <script setup>
+import { ref } from "vue";
+
+
+function loadFile(event) {
+  document.getElementById('button-file').innerText = "fdsf";
+
+  // const file = event.target.files[0];
+  // if (file) {
+  //   const reader = new FileReader();
+  //   reader.onload = function(e) {
+  //     // Обрабатываем содержимое файла, например, выводим его имя
+  //     document.getElementById('button-file').innerHTML = file.name;
+  //     console.log(document.getElementById('button-file').textContent)
+  //   };
+  //   reader.readAsText(file);
+  // }
+}
+
 
 </script>
 
@@ -32,9 +51,8 @@
   height: 400px;
   flex-shrink: 0;
   /*max-width: 400px;*/
-
-
 }
+
 .edit-task__form {
   display: flex;
   flex-direction: column;
@@ -52,9 +70,12 @@
 
 .button-file {
   cursor: pointer;
+  color: black;
+  z-index: 5;
+  display: block;
 }
 
-.input__input,.button-file,.input_file {
+.input__input, .button-file, .input_file {
   background-color: white;
   width: 60%;
   height: 100%;
@@ -70,5 +91,4 @@
   width: 70%;
   margin-top: 20px;
 }
-
 </style>
