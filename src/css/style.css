@@ -1,9 +1,7 @@
 :root {
-  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-
+  font-family: Helvetica, Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light dark;
   /*https://developer.mozilla.org/en-US/docs/Web/CSS/color-scheme*/
-
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -13,6 +11,7 @@
 .button {
   width: 100px;
   height: 40px;
+  background-color: white;
 }
 
 * {

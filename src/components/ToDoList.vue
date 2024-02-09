@@ -16,7 +16,7 @@
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
 import ToDoListTask from "./ToDoListTask.vue";
-import List from "./List.vue";
+import List from "./Squares.vue";
 const props = defineProps({
   path: String,
 })
@@ -61,7 +61,7 @@ getSubjectFromPath();
   width: 90%;
   margin: 0 auto;
   //height: 70%;
-  padding: 10px;
+  //padding: 20px;
 }
 
 .to-do-list__list::-webkit-scrollbar {
@@ -69,7 +69,7 @@ getSubjectFromPath();
 }
 
 .to-do-list__title {
-  margin: 5px 10px 10px;
+  margin: 20px 20px 10px;
   font-size: 1.5em;
 }
 
