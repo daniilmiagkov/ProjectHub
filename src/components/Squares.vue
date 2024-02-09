@@ -1,6 +1,6 @@
 <template>
   <div class="list">
-    <h3 class="list__title" @click="isShow = !isShow">название</h3>
+    <h3 class="list__title" @click="isShow = !isShow">{{props.title}}</h3>
     <div v-bind:class="{ list__grid_show: isShow, list__grid_hide: !isShow} ">
       <div class="list__grid-element" v-for="item in list" @click="openModal(item)">
       </div>
@@ -9,11 +9,13 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {defineProps, ref} from "vue";
 import { inject } from 'vue';
 
 const modal = inject('modal');
-
+const props = defineProps({
+  title: String
+})
 const openModal = (item) => {
   modal.value.show = true;
   console.log(modal.value)
@@ -34,11 +36,11 @@ function show() {
 <style scoped lang="scss">
 
 .list {
-  padding: 10px 10px 10px;
+  padding: 4px 10px 6px;
 }
 
 .list__title{
-  padding: 4px 10px 10px;
+  padding: 4px 10px 6px;
 }
 
 .list__grid_show {

@@ -1,15 +1,8 @@
 <template>
   <div class="to-do-list">
-    <h1 class="to-do-list__title">{{path}}</h1>
-    <List></List>
-    <List></List>
-    <List></List>
-<!--    <div class="to-do-list__list" >
-      <ToDoListTask
-        v-for="item in list"
-        v-model:path="item.path"
-      />
-    </div>-->
+    <h1 class="to-do-list__title">{{subject.Title}}</h1>
+    <Squares title="Лабораторные"></Squares>
+    <Squares title="Посещения"></Squares>
   </div>
 </template>
 
@@ -17,11 +10,12 @@
 import {defineProps, ref} from "vue";
 import ToDoListTask from "./ToDoListTask.vue";
 import List from "./Squares.vue";
+import Squares from "./Squares.vue";
 const props = defineProps({
   path: String,
 })
 
-let list = ref([]);
+let subject = ref([]);
 
 function getSubjectFromPath() {
   fetch(
@@ -35,8 +29,8 @@ function getSubjectFromPath() {
         }
       })
       .then((data) => {
-        list.value = data.Labs;
-        console.log(data.Labs)
+        subject.value = data;
+        // console.log(data.Labs)
       })
       .catch((error) => console.log(error))
 }

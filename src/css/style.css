@@ -8,6 +8,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root ::-webkit-scrollbar {
+  width: 0;
+}
+
 .button {
   width: 100px;
   height: 40px;
