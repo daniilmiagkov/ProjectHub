@@ -2,7 +2,7 @@
   <div class="list">
     <h3 class="list__title" @click="isShow = !isShow">{{props.title}}</h3>
     <div v-bind:class="{ list__grid_show: isShow, list__grid_hide: !isShow} ">
-      <div class="list__grid-element" v-for="item in list" @click="openModal(item)">
+      <div class="list__grid-element" v-for="item in props.list" @click="openModal(item)">
       </div>
     </div>
   </div>
@@ -14,17 +14,14 @@ import { inject } from 'vue';
 
 const modal = inject('modal');
 const props = defineProps({
-  title: String
+  title: String,
+  list: Array
 })
 const openModal = (item) => {
   modal.value.show = true;
   modal.value.data = item;
 };
-const list = ref([]);
 let isShow = ref(false);
-for (let i = 0; i < Math.random() * 10 + 5; i++) {
-  list.value.push(i);
-}
 
 function show() {
   isShow.value = !isShow.value;

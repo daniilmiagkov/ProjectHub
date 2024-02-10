@@ -1,8 +1,14 @@
 <template>
   <div class="to-do-list">
     <h1 class="to-do-list__title">{{subject.Title}}</h1>
-    <Squares title="Лабораторные"></Squares>
-    <Squares title="Посещения"></Squares>
+    <Squares
+        v-if="isLabs"
+        title="Лабораторные"
+        :list="subject.Labs"
+    ></Squares>
+<!--    <Squares-->
+<!--        v-if="subject.Visitis.length > 0"-->
+<!--        title="Посещения"></Squares>-->
   </div>
 </template>
 
@@ -13,27 +19,32 @@ const props = defineProps({
   path: String,
 })
 
+const isLabs = ref(true)
+
 let subject = ref([]);
 
-function getSubjectFromPath() {
-  fetch(
-      `http://localhost:3000/database/${props.path}/${props.path}_subject.json` )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        else {
-          console.log(response)
-        }
-      })
-      .then((data) => {
-        subject.value = data;
-        // console.log(data.Labs)
-      })
-      .catch((error) => console.log(error))
-}
-getSubjectFromPath();
-// console.log(props.path)
+fetch(`http://localhost:3000/database/${props.path}/${props.path}_subject.json` )
+    .then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      else {
+        console.log(response)
+      }
+    })
+    .then((data) => {
+      subject.value = data;
+      console.log(data)
+      if (subject.value.Labs.length > 0) {
+        isLabs.value = true
+      }
+      else {
+        isLabs.value = false
+      }
+      console.log(subject.value.Labs)
+    })
+    .catch((error) => console.log(error))
+
 
 </script>
 

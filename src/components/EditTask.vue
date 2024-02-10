@@ -85,7 +85,7 @@ function loadFile(event) {
   width: 70%;
   max-width: 500px;
   height: 50%;
-  position: absolute;
+  position: fixed;
   top: 15%;
   z-index: 9000;
   background-color: rgb(255, 139, 139);
