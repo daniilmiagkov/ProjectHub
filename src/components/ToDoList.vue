@@ -1,27 +1,21 @@
 <template>
   <div class="to-do-list">
-    <h1 class="to-do-list__title">{{path}}</h1>
-    <List></List>
-    <List></List>
-    <List></List>
-<!--    <div class="to-do-list__list" >
-      <ToDoListTask
-        v-for="item in list"
-        v-model:path="item.path"
-      />
-    </div>-->
+    <h1 class="to-do-list__title">{{subject.Title}}</h1>
+    <Squares title="Лабораторные"></Squares>
+    <Squares title="Посещения"></Squares>
   </div>
 </template>
 
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
 import ToDoListTask from "./ToDoListTask.vue";
-import List from "./List.vue";
+import List from "./Squares.vue";
+import Squares from "./Squares.vue";
 const props = defineProps({
   path: String,
 })
 
-let list = ref([]);
+let subject = ref([]);
 
 function getSubjectFromPath() {
   fetch(
@@ -35,8 +29,8 @@ function getSubjectFromPath() {
         }
       })
       .then((data) => {
-        list.value = data.Labs;
-        console.log(data.Labs)
+        subject.value = data;
+        // console.log(data.Labs)
       })
       .catch((error) => console.log(error))
 }
@@ -46,22 +40,18 @@ getSubjectFromPath();
 </script>
 
 <style scoped lang="scss">
+@import "../css/colors.scss";
+
 .to-do-list {
-  background-color: rgb(169, 196, 238);
-  //border: 1px solid black;
+  background-color: $color-primary-light;
   border-radius: 10px;
-  //min-height: 200px;
-  //width: 250px;
 }
 
 .to-do-list__list {
-  //border: 1px solid black;
   border-radius: 10px;
   overflow: auto;
   width: 90%;
   margin: 0 auto;
-  //height: 70%;
-  padding: 10px;
 }
 
 .to-do-list__list::-webkit-scrollbar {
@@ -69,7 +59,7 @@ getSubjectFromPath();
 }
 
 .to-do-list__title {
-  margin: 5px 10px 10px;
+  margin: 20px 20px 10px;
   font-size: 1.5em;
 }
 
