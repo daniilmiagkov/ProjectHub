@@ -22,7 +22,7 @@ function getListSubjects() {
         // Проверяем, что данные не пусты, прежде чем с ними работать
         if (data && Object.keys(data).length > 0) {
           listSubjects.value = data.names
-          console.log(data.names);
+          // console.log(data.names);
           // Теперь можешь обрабатывать данные
         } else {
           console.error('Получены пустые данные');

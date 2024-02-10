@@ -1,59 +1,48 @@
-:root {
-  /* Основные цвета */
-  --color-primary: #4D84F4;
-  --color-primary-light: lighten(var(--color-primary), 15%);
-  --color-primary-dark: darken(var(--color-primary), 15%);
-  --color-primary-bg: rgba(var(--color-primary), 0.2);
+$color-primary: #4D84F4;
+$color-primary-light: lighten($color-primary, 15%);
+$color-primary-dark: darken($color-primary, 15%);
+$color-primary-bg: rgba($color-primary, 0.2);
 
-  --color-accent: #f5414f;
-  --color-accent-light: lighten(var(--color-accent), 15%);
-  --color-accent-dark: darken(var(--color-accent), 10%);
-  --color-accent-bg: rgba(var(--color-accent), 0.2);
+$color-accent: #f5414f;
+$color-accent-light: lighten($color-accent, 15%);
+$color-accent-dark: darken($color-accent, 10%);
+$color-accent-bg: rgba($color-accent, 0.2);
 
-  /* Оттенки - сгенерировано с использованием chroma.js - 12 шагов */
-  --black: #1d1d21;
-  --gray-10: #2e2e31;
-  --gray-6: #7b7a7d;
-  --gray-4: #a5a5a6;
-  --gray-3: #bbbbbc;
-  --gray-2: #d1d0d2;
-  --gray-1: #e8e7e8;
-  --white: white;
+$black: #1d1d21;
+$gray-10: #2e2e31;
+$gray-6: #7b7a7d;
+$gray-4: #a5a5a6;
+$gray-3: #bbbbbc;
+$gray-2: #d1d0d2;
+$gray-1: #e8e7e8;
+$white: white;
 
-  /* Обратная связь */
-  --color-success: #88c459;
-  --color-error: #f5414f;
-  --color-warning: #ffd137;
+$color-success: #88c459;
+$color-error: #f5414f;
+$color-warning: #ffd137;
 
-  /* Типографика */
-  --color-text: var(--gray-10);
-  --color-text-heading: var(--black);
-  --color-text-subtle: var(--gray-6);
-  --color-link: var(--color-primary);
-  --color-link-visited: var(--color-primary-dark);
-  --color-mark: var(--color-accent-bg);
-  --color-blockquote-border: var(--gray-2);
+$color-text: $gray-10;
+$color-text-heading: $black;
+$color-text-subtle: $gray-6;
+$color-link: $color-primary;
+$color-link-visited: $color-primary-dark;
+$color-mark: $color-accent-bg;
+$color-blockquote-border: $gray-2;
 
-  /* Границы */
-  --color-border: var(--gray-2);
+$color-border: $gray-2;
 
-  /* Тело */
-  --color-body: var(--white);
+$color-body: $white;
 
-  /* Формы */
-  --form-element-border: var(--color-border);
-  --form-element-border-focus: var(--color-primary);
-  --form-element-border-error: var(--color-error);
-  --form-element-bg: var(--white);
-  --form-text-placeholder: var(--gray-4);
+$form-element-border: $color-border;
+$form-element-border-focus: $color-primary;
+$form-element-border-error: $color-error;
+$form-element-bg: $white;
+$form-text-placeholder: $gray-4;
 
-  /* Кнопки */
-  --btn-primary-bg: var(--color-primary);
-  --btn-primary-hover: var(--color-primary-light);
-  --btn-primary-active: var(--color-primary-dark);
-  --btn-primary-label: var(--white);
+$btn-primary-bg: $color-primary;
+$btn-primary-hover: $color-primary-light;
+$btn-primary-active: $color-primary-dark;
+$btn-primary-label: $white;
 
-  /* Иконы */
-  --color-icon-primary: var(--gray-4);
-  --color-icon-secondary: inherit;
-}
+$color-icon-primary: $gray-4;
+$color-icon-secondary: inherit;

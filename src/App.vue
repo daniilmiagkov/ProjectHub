@@ -1,22 +1,29 @@
-<script setup lang="ts">
-import AllToDoList from '@components/AllToDoList.vue'
-import TodayList from "./components/TodayList.vue";
-import EditTask from "./components/EditTask.vue";
-
-</script>
-
 <template>
   <div class="app">
     <TodayList/>
 <!--    <EditTask/>-->
     <AllToDoList/>
+    <EditTask></EditTask>
   </div>
 </template>
+
+<script setup lang="ts">
+import AllToDoList from '@components/AllToDoList.vue'
+import TodayList from "./components/TodayList.vue";
+import EditTask from "./components/EditTask.vue";
+
+import {provide, ref} from "vue";
+const modal = ref({
+  show: false,
+  data: null }
+);
+provide('modal', modal);
+
+</script>
 
 <style lang="scss">
 @import "./css/style.css";
 body {
-  min-height: 100vh;
 }
 
 .app {
