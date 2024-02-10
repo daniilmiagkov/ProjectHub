@@ -8,8 +8,6 @@
 
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
-import ToDoListTask from "./ToDoListTask.vue";
-import List from "./Squares.vue";
 import Squares from "./Squares.vue";
 const props = defineProps({
   path: String,
@@ -19,7 +17,7 @@ let subject = ref([]);
 
 function getSubjectFromPath() {
   fetch(
-      `http://localhost:3000/database/db_${props.path}/${props.path}_subject.json` )
+      `http://localhost:3000/database/${props.path}/${props.path}_subject.json` )
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -35,7 +33,7 @@ function getSubjectFromPath() {
       .catch((error) => console.log(error))
 }
 getSubjectFromPath();
-
+// console.log(props.path)
 
 </script>
 

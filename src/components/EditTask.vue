@@ -50,9 +50,6 @@ const props = defineProps({
 const modal = inject('modal');
 const fileName = ref("");
 
-onMounted(() => {
-  console.log('ok')
-})
 const closeModal = () => {
   modal.value.show = false;
 };
