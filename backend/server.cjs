@@ -28,10 +28,10 @@ server.get('/', function(req, res) {
   })
 })
 
-server.get('/database/nameSubjects', (req, res) => {
+server.get('/database/names', (req, res) => {
   res.set('Content-Type', 'application/json');
   fs.readdir(projectHub + '\\backend\\database', (err, files) => {
-    console.log(files)
+    // console.log(files)
     res.send(files);
   })
 })
