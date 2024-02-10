@@ -19,12 +19,13 @@ let list = ref([]);
 
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+@import "../css/colors.scss";
 
 .today-list {
   padding: 10px 10px 20px;
   width: 100%;
-  background-color: rgb(169, 196, 238);
+  background-color: $color-primary-light;
   /*height: 600px;*/
   border-radius: 10px;
 }

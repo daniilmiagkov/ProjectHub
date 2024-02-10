@@ -40,22 +40,18 @@ getSubjectFromPath();
 </script>
 
 <style scoped lang="scss">
+@import "../css/colors.scss";
+
 .to-do-list {
-  background-color: rgb(169, 196, 238);
-  //border: 1px solid black;
+  background-color: $color-primary-light;
   border-radius: 10px;
-  //min-height: 200px;
-  //width: 250px;
 }
 
 .to-do-list__list {
-  //border: 1px solid black;
   border-radius: 10px;
   overflow: auto;
   width: 90%;
   margin: 0 auto;
-  //height: 70%;
-  //padding: 20px;
 }
 
 .to-do-list__list::-webkit-scrollbar {

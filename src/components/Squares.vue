@@ -18,7 +18,6 @@ const props = defineProps({
 })
 const openModal = (item) => {
   modal.value.show = true;
-  console.log(modal.value)
   modal.value.data = item;
 };
 const list = ref([]);
@@ -41,6 +40,7 @@ function show() {
 
 .list__title{
   padding: 4px 10px 6px;
+  cursor: pointer;
 }
 
 .list__grid_show {
@@ -61,6 +61,7 @@ function show() {
   background-color: white;
   border-radius: 5px;
   padding-top: 100%;
+  cursor: pointer;
 
 }
 </style>
