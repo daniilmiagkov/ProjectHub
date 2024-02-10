@@ -1,5 +1,5 @@
 export class Subject {
-    Title: string;
+    Title: string = "";
     Labs: Array<Lab> = [];
     Tasks: Array<Task> = [];
     Visits: Array<Visit> = [];
@@ -9,34 +9,33 @@ export class Subject {
 }
 
 export class Visit {
-    Date: Date;
-    Type: string;
+    Date: Date = new Date();
+    Type: string = "await";
     Types: Array<string> = [
         "cancelled",
         "skipped",
         "visited",
         "disease",
+        "await"
     ];
 }
 
 export class Lab {
-    Title: string;
-    File: string;
-    Tasks: Array<Task>;
-    Date: Date;
-    Subject: string;
-    Type: string;
+    Title: string = "";
+    File: string = "";
+    // Tasks: Array<Task> ;
+    Date: String = "";
+    Subject: string = "";
+    Type: string = "not done";
     Types: Array<string> = [
         "done",
         "not done",
         "process",
-        "accepted"
+        "accepted",
+        "overdue"
     ];
-    Score: number;
-    MaxScore: number;
-    constructor(title: string) {
-        this.Title = title;
-    }
+    Score: number = 0;
+    MaxScore: number = 0;
 }
 
 export class Task {

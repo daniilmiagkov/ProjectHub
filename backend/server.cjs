@@ -30,10 +30,9 @@ server.get('/', function(req, res) {
 
 server.get('/database/nameSubjects', (req, res) => {
   res.set('Content-Type', 'application/json');
-  
-  fs.readFile(projectHub + '\\backend\\database\\nameSubjects.json', (err, data) => {
-    res.send(data);
-    
+  fs.readdir(projectHub + '\\backend\\database', (err, files) => {
+    console.log(files)
+    res.send(files);
   })
 })
 
