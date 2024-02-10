@@ -1,12 +1,22 @@
 export class Subject {
     Title: string;
-    Labs: Array<Lab>;
-    Tasks: Array<Task>;
+    Labs: Array<Lab> = [];
+    Tasks: Array<Task> = [];
+    Visits: Array<Visit> = [];
     constructor(title: string) {
         this.Title = title;
-        this.Labs = new Array<Lab>();
-        this.Tasks = new Array<Task>();
     }
+}
+
+export class Visit {
+    Date: Date;
+    Type: string;
+    Types: Array<string> = [
+        "cancelled",
+        "skipped",
+        "visited",
+        "disease",
+    ];
 }
 
 export class Lab {
@@ -15,12 +25,17 @@ export class Lab {
     Tasks: Array<Task>;
     Date: Date;
     Subject: string;
-    Done: boolean;
-
+    Type: string;
+    Types: Array<string> = [
+        "done",
+        "not done",
+        "process",
+        "accepted"
+    ];
+    Score: number;
+    MaxScore: number;
     constructor(title: string) {
         this.Title = title;
-        this.File = title;
-        this.Tasks = new Array<Task>;
     }
 }
 
