@@ -34,14 +34,14 @@ fetch(`http://localhost:3000/database/${props.path}/${props.path}_subject.json` 
     })
     .then((data) => {
       subject.value = data;
-      console.log(data)
+      // console.log(data)
       if (subject.value.Labs.length > 0) {
         isLabs.value = true
       }
       else {
         isLabs.value = false
       }
-      console.log(subject.value.Labs)
+      // console.log(subject.value.Labs)
     })
     .catch((error) => console.log(error))
 

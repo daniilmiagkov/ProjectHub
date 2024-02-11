@@ -2,8 +2,7 @@
   <div class="list">
     <h3 class="list__title" @click="isShow = !isShow">{{props.title}}</h3>
     <div v-bind:class="{ list__grid_show: isShow, list__grid_hide: !isShow} ">
-      <div class="list__grid-element" v-for="item in props.list" @click="openModal(item)">
-      </div>
+      <div class="list__grid-element" v-for="item in props.list" @click="openModal(item)"></div>
     </div>
   </div>
 </template>
@@ -20,6 +19,7 @@ const props = defineProps({
 const openModal = (item) => {
   modal.value.show = true;
   modal.value.data = item;
+  // console.log(item)
 };
 let isShow = ref(false);
 
