@@ -22,17 +22,18 @@ export class Visit {
 
 export class Lab {
     Title: string = "";
-    File: string = "";
+    FileMethod: Object = null;
+    FileLab: Object = null;
     // Tasks: Array<Task> ;
     Date: String = "";
     Subject: string = "";
     Type: string = "not done";
     Types: Array<string> = [
-        "done",
+        "overdue",
         "not done",
         "process",
+        "done",
         "accepted",
-        "overdue"
     ];
     Score: number = 0;
     MaxScore: number = 0;

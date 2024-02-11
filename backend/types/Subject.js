@@ -63,11 +63,17 @@ export class Lab {
             writable: true,
             value: ""
         });
-        Object.defineProperty(this, "File", {
+        Object.defineProperty(this, "FileMethod", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: ""
+            value: null
+        });
+        Object.defineProperty(this, "FileLab", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: null
         });
         // Tasks: Array<Task> ;
         Object.defineProperty(this, "Date", {
@@ -93,11 +99,11 @@ export class Lab {
             configurable: true,
             writable: true,
             value: [
-                "done",
+                "overdue",
                 "not done",
                 "process",
+                "done",
                 "accepted",
-                "overdue"
             ]
         });
         Object.defineProperty(this, "Score", {
