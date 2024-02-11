@@ -1,8 +1,8 @@
 <template>
   <div class="all-to-do-list">
     <ToDoList
-        v-for="item in listSubjects"
-        v-model:path="item.name"/>
+        v-for="(item, index) in listSubjects"  :key="index"
+        :path="item"/>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import {ref} from "vue";
 import ToDoList from "./ToDoList.vue";
 let listSubjects = ref([]);
 function getListSubjects() {
-  fetch('http://localhost:3000/database/nameSubjects')
+  fetch('http://localhost:3000/database/names')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Ошибка HTTP: ${response.status}`);
@@ -21,8 +21,8 @@ function getListSubjects() {
       .then((data) => {
         // Проверяем, что данные не пусты, прежде чем с ними работать
         if (data && Object.keys(data).length > 0) {
-          listSubjects.value = data.names
-          // console.log(data.names);
+          listSubjects.value = data
+          // console.log(listSubjects);
           // Теперь можешь обрабатывать данные
         } else {
           console.error('Получены пустые данные');

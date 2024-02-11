@@ -7,11 +7,10 @@
     "skipLibCheck": true,
 
     /* Bundler mode */
-    "moduleResolution": "bundler",
+    "moduleResolution": "node",
 //    "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
     "jsx": "preserve",
 
     /* Linting */
@@ -21,10 +20,6 @@
     "noFallthroughCasesInSwitch": true
   },
   "include": [
-    "backend/**/*.ts",
-    "src/**/*.ts",
-    "src/**/*.tsx",
-    "src/**/*.vue"
+    "**/*.ts",
   ],
-  "references": [{ "path": "./tsconfig.node.json"}]
 }

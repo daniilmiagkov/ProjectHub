@@ -2,10 +2,10 @@
   <div class="today-list">
     <h1 class="today-list__title">Today</h1>
     <div class="today-list__list" >
-      <ToDoListTask
-          v-for="item in list"
-          v-model:path="item.path"
-      />
+<!--      <ToDoListTask-->
+<!--          v-for="item in list"-->
+<!--          v-model:path="item.path"-->
+<!--      />-->
     </div>
   </div>
 </template>
