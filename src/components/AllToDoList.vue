@@ -11,7 +11,7 @@ import {ref} from "vue";
 import ToDoList from "./ToDoList.vue";
 let listSubjects = ref([]);
 function getListSubjects() {
-  fetch('http://localhost:3000/database/nameSubjects')
+  fetch('http://localhost:3000/database/names')
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Ошибка HTTP: ${response.status}`);
