@@ -1,10 +1,10 @@
 $color-primary: #4D84F4;
-$color-primary-light: lighten($color-primary, 15%);
-$color-primary-dark: darken($color-primary, 15%);
+$color-primary-light: lighten($color-primary, 25%);
+$color-primary-dark: darken($color-primary, 35%);
 $color-primary-bg: rgba($color-primary, 0.2);
 
-$color-accent: #f5414f;
-$color-accent-light: lighten($color-accent, 15%);
+$color-accent: #7756cc;
+$color-accent-light: lighten($color-accent, 25%);
 $color-accent-dark: darken($color-accent, 10%);
 $color-accent-bg: rgba($color-accent, 0.2);
 
@@ -18,7 +18,7 @@ $gray-1: #e8e7e8;
 $white: white;
 
 $color-success: #88c459;
-$color-error: #f5414f;
+$color-error: rgba(143, 189, 164, 0.38);
 $color-warning: #ffd137;
 
 $color-text: $gray-10;
