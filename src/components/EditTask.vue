@@ -15,50 +15,49 @@
         <span class="input__title">{{lab.Subject}}</span>
       </div>
       <label class="input" for="input-title">
-        <span class="input__title">{{lab.Subject}}</span>
-        <input class="input__input" id="input-title" type="text" value="Lab"/>
+        <span class="input__title">Название</span>
+        <input class="input__input" id="input-title" type="text" v-bind:readonly="!isEdit" v-bind:value="lab.Title"/>
       </label>
-      <label class="input" for="input-file-method">
+<!--      <label class="input" for="input-file-method">
         <span class="input__title">Методичка</span>
         <input
             class="input__input input_file"
             id="input-file-method" type="file"
-            @change="loadFile(fileNameMethod, $event)"/>
-        <span class="button-file" id="button-file">{{ fileNameMethod.name }}</span>
+            @change="loadFile(fileNameMethod, $event)"
+            v-bind:readonly="!isEdit"/>
+        <span class="button-file" id="button-file" >{{fileNameMethod.name }}</span>
       </label>
       <label class="input" for="input-file-lab">
         <span class="input__title">Файл</span>
         <input
             class="input__input input_file"
             id="input-file-lab" type="file"
-            @change="loadFile(fileNameLab, $event)"/>
+            @change="loadFile(fileNameLab, $event)"
+            v-bind:readonly="!isEdit"/>
         <span class="button-file" id="button-file">{{ fileNameLab.name }}</span>
-      </label>
+      </label>-->
 
       <label class="input" for="input-date">
         <span class="input__title">Дата сдачи</span>
-        <input class="input__input" id="input-date" type="date"/>
+        <input class="input__input" id="input-date" type="date" v-bind:readonly="!isEdit"/>
       </label>
-<!--      <div class="edit-task__radiobuttons">
-        <label class="input__radio"><input type="radio" name="type" />done</label>
-        <label class="input__radio"><input type="radio" name="type" />not done</label>
-        <label class="input__radio"><input type="radio" name="type" />process</label>
-        <label class="input__radio"><input type="radio" name="type" />accepted</label>
-        <label class="input__radio"><input type="radio" name="type" />overdue</label>
-      </div>-->
       <div class="edit-task__radiobuttons">
         <div v-for="(item, index) in lab.Types"
              class="radio__label"
              @mouseover="hoverHandler(index)"
              @mouseout="hoverHandler(null)">
-          <label
-
-
-          >
-            <input type="radio" name="type" />
-            <div class="radio__text"></div>
-
-          </label>
+          <label>
+            <input type="radio" name="type" v-bind:id="item" v-bind:readonly="!isEdit" @change="changeRadio(item)"/>
+            <div
+                v-bind:id="item + 'placeholder'" class="radio__text"
+                 :class="{
+                  'radio_default': true,
+            'radio_overdue': isRadio === item && item === 'overdue',
+            'radio_not_done': isRadio === item && item === 'not done',
+            'radio_process': isRadio === item && item === 'process',
+            'radio_done': isRadio === item && item === 'done',
+            'radio_accepted': isRadio === item && item === 'accepted',
+          }"></div></label>
           <div :class="{
             'radio_hover': isHover === index,
             'radio_non-hover': isHover !== index
@@ -67,11 +66,16 @@
 
       </div>
     </form>
-      <button
-          class="
-        edit-task__button-edit
-        button"
-          @click="">Редактировать</button>
+    <button
+        :class="{'visible': isEdit, 'hide': !isEdit}"
+      class="edit-task__button-edit button"
+      @click="save()">Сохранить
+    </button>
+    <button
+        :class="{'visible': !isEdit, 'hide': isEdit}"
+        class="edit-task__button-edit button"
+      @click="edit()">Редактировать
+    </button>
 
 
   </div>
@@ -80,9 +84,13 @@
 <script setup>
 import {inject, onMounted, ref, watch} from "vue";
 const modal = inject('modal');
-const isHover = ref(false);
-
+const isHover = ref();
 let lab = ref({})
+let isEdit = ref(false);
+let labEdit = ref({})
+let isRadio = ref();
+const fileNameMethod = ref({name: ""});
+const fileNameLab = ref({name: ""});
 
 onMounted(()=> {
 // Вызовем функцию при первоначальном отображении компонента
@@ -96,12 +104,26 @@ onMounted(()=> {
     }
   });
 })
-const fileNameMethod = ref({name: ""});
-const fileNameLab = ref({name: ""});
+function save() {
+  isEdit.value = false;
+  console.log(isEdit)
+  // app.update()
+}
+
+function changeRadio(item) {
+  document.getElementById(item + 'placeholder');
+  console.log(item)
+  isRadio.value = item;
+}
+
+function edit() {
+  isEdit.value = true;
+  console.log(isEdit)
+}
 function hoverHandler(index) {
   this.isHover = index;
 }
-const closeModal = () => {
+function closeModal() {
   modal.value.show = false;
 };
 function loadFile(fileName, event) {
@@ -111,7 +133,7 @@ function loadFile(fileName, event) {
     const reader = new FileReader();
     reader.onload = function(event) {
       fileName.name = file.name;
-      console.log(fileName);
+      // console.log(fileName);
       // console.log("Имя файла:", fileNameLab.value);
     };
     reader.onerror = function(error) {
@@ -120,17 +142,47 @@ function loadFile(fileName, event) {
     reader.readAsText(file);
   }
 }
-
-const handleShow = () => {
+function handleShow() {
   // Ваш код для выполнения при отображении компонента
   lab = modal.value.data;
-  console.log("lab")
-  console.log(lab)
+/*  console.log("lab")
+  console.log(lab)*/
 };
 </script>
 
 <style scoped lang="scss">
 @import "../css/colors.scss";
+
+.radio_default {
+  background-color: $gray-2;
+}
+
+.radio_overdue {
+  background-color: rgb(157, 40, 40);
+}
+.radio_process {
+  background-color: rgb(40, 157, 108);
+}
+
+.radio_not_done {
+  background-color: rgb(255, 255, 255);
+}
+.radio_done {
+  background-color: rgb(40, 108, 157);
+}
+.radio_accepted {
+  background-color: rgb(113, 183, 141);
+}
+
+
+
+.hide {
+  display: none;
+}
+
+.visible {
+  display: block;
+}
 
 .radio_non-hover {
   opacity: 0;
@@ -170,7 +222,6 @@ const handleShow = () => {
 .radio__text {
   width: 40px;
   height: 40px;
-  background-color: white;
   border-radius: 10px;
 }
 
@@ -194,7 +245,7 @@ input[type='radio'] {
   position: fixed;
   top: 15%;
   z-index: 9000;
-  background-color: rgb(255, 139, 139);
+  background-color: $color-accent-light;
 }
 
 .edit-task__header {
@@ -202,6 +253,16 @@ input[type='radio'] {
   margin-top: 10px;
   justify-content: space-between;
   width: 90%;
+}
+
+.input__input:focus {
+  border-bottom: 2px solid black;
+  height:36px;
+
+}
+
+input {
+  outline: none;
 }
 
 .edit-task__button-close, .edit-task__button-edit {

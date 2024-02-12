@@ -22,8 +22,8 @@ export class Visit {
 
 export class Lab {
     Title: string = "";
-    FileMethod: Object = null;
-    FileLab: Object = null;
+    FileMethod: string = "";
+    FileLab: string = "";
     // Tasks: Array<Task> ;
     Date: String = "";
     Subject: string = "";

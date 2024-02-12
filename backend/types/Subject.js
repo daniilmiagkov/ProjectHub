@@ -67,13 +67,13 @@ export class Lab {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: null
+            value: ""
         });
         Object.defineProperty(this, "FileLab", {
             enumerable: true,
             configurable: true,
             writable: true,
-            value: null
+            value: ""
         });
         // Tasks: Array<Task> ;
         Object.defineProperty(this, "Date", {
