@@ -1,8 +1,7 @@
 <template>
   <div class="app">
-    <TodayList/>
-<!--    <EditTask/>-->
-    <AllToDoList/>
+<!--    <TodayList :class="{'blur': modal.show}"/>-->
+    <AllToDoList  :class="{'blur': modal.show}"/>
     <EditTask></EditTask>
   </div>
 </template>
@@ -25,7 +24,9 @@ provide('modal', modal);
 @import "./css/style.css";
 body {
 }
-
+.blur {
+  filter: blur(5px);
+}
 .app {
   margin: 20px;
   display: grid;
