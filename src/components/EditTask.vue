@@ -12,11 +12,18 @@
 
       <div class="input" for="input-title">
         <span class="input__title">Предмет</span>
+<!--        <span class="input__title">{{}}</span>-->
         <span class="input__title">{{lab.Subject}}</span>
       </div>
       <label class="input" for="input-title">
         <span class="input__title">Название</span>
-        <input class="input__input" id="input-title" type="text" v-bind:readonly="!isEdit" v-bind:value="lab.Title"/>
+        <input class="input__input" id="input-title" type="text"
+               :readonly="!isEdit"
+               :value="lab.Title"
+               :class="{
+                 'input_edit': !isEdit,
+                 'input_not-edit': isEdit
+               }"/>
       </label>
 <!--      <label class="input" for="input-file-method">
         <span class="input__title">Методичка</span>
@@ -39,7 +46,13 @@
 
       <label class="input" for="input-date">
         <span class="input__title">Дата сдачи</span>
-        <input class="input__input" id="input-date" type="date" v-bind:readonly="!isEdit"/>
+        <input class="input__input" id="input-date" type="date"
+               :readonly="!isEdit"
+               :value="lab.Date"
+               :class="{
+                 'input_edit': !isEdit,
+                 'input_not-edit': isEdit
+               }"/>
       </label>
       <div class="edit-task__radiobuttons">
         <div v-for="(item, index) in lab.Types"
@@ -47,7 +60,9 @@
              @mouseover="hoverHandler(index)"
              @mouseout="hoverHandler(null)">
           <label>
-            <input type="radio" name="type" v-bind:id="item" v-bind:readonly="!isEdit" @change="changeRadio(item)"/>
+            <input type="radio" name="type" v-bind:id="item"
+                   :readonly="!isEdit"
+                   @change="changeRadio(item)"/>
             <div
                 v-bind:id="item + 'placeholder'" class="radio__text"
                  :class="{
@@ -100,6 +115,7 @@ onMounted(()=> {
   watch(() => modal.value.data, (newValue, oldValue) => {
     if (newValue) {
       // Если modal.show изменилось на true, вызываем функцию
+      console.log(modal.value.data)
       handleShow();
     }
   });
@@ -111,8 +127,7 @@ function save() {
 }
 
 function changeRadio(item) {
-  document.getElementById(item + 'placeholder');
-  console.log(item)
+  if (isEdit.value)
   isRadio.value = item;
 }
 
@@ -145,8 +160,9 @@ function loadFile(fileName, event) {
 function handleShow() {
   // Ваш код для выполнения при отображении компонента
   lab = modal.value.data;
-/*  console.log("lab")
-  console.log(lab)*/
+  // isRadio.value = lab.Type;
+  // console.log("lab")
+  console.log(lab)
 };
 </script>
 
@@ -154,50 +170,49 @@ function handleShow() {
 @import "../css/colors.scss";
 
 .radio_default {
-  background-color: $gray-2;
+  background-color: $gray-1;
 }
-
 .radio_overdue {
-  background-color: rgb(157, 40, 40);
+  background-color: $color-lab-overdue;
 }
 .radio_process {
-  background-color: rgb(40, 157, 108);
+  background-color: $color-lab-process;
 }
-
 .radio_not_done {
-  background-color: rgb(255, 255, 255);
+  background-color: $color-lab-not-done;
 }
 .radio_done {
-  background-color: rgb(40, 108, 157);
+  background-color: $color-lab-done;
 }
 .radio_accepted {
-  background-color: rgb(113, 183, 141);
+  background-color: $color-lab-accepted;
 }
-
-
-
+.input_edit {
+  color: $gray-6;
+}
+.input_not-edit {
+  color: $black;
+}
 .hide {
   display: none;
 }
-
 .visible {
   display: block;
 }
-
 .radio_non-hover {
   opacity: 0;
   position: absolute;
 
 }
 .radio__label{
-  width: 60px;
-  height: 60px;
+  //max-width: 60px;
+  //max-height: 60px;
+  //width: 100%;
   //padding-top: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
-
 .radio_hover {
   opacity: 1;
   transition: opacity 0.4s cubic-bezier(0.5,0,1,1);
@@ -215,27 +230,30 @@ function handleShow() {
 }
 .edit-task__radiobuttons {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  width: 60%;
+  justify-content: space-between;
+  grid-template-columns: repeat(5, 60px);
+  width: 80%;
   justify-items: center;
+
 }
 .radio__text {
-  width: 40px;
-  height: 40px;
+  width: 3em;
+  height: 3em;
+  margin-top: 100%;
+  max-width: 60px;
+  max-height: 60px;
   border-radius: 10px;
 }
-
 input[type='radio'] {
   display: none;
 }
-
 .edit-task {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
-  border-radius: 10px;
+  border-radius: 20px;
   flex-shrink: 0;
   /*max-width: 400px;*/
   margin: 10px auto;
@@ -245,54 +263,47 @@ input[type='radio'] {
   position: fixed;
   top: 15%;
   z-index: 9000;
-  background-color: $color-accent-light;
+  background-color: $color-primary-light;
+  //background-color: $white;
+  border: 7px outset $color-primary-light;
 }
-
 .edit-task__header {
   display: flex;
   margin-top: 10px;
   justify-content: space-between;
   width: 90%;
 }
-
-.input__input:focus {
+/*.input__input:focus {
   border-bottom: 2px solid black;
   height:36px;
 
-}
-
+}*/
 input {
   outline: none;
 }
-
 .edit-task__button-close, .edit-task__button-edit {
   /*margin: 10px 0;*/
   /*height: 60px;*/
   border-radius: 10px;
   font-size: 1em;
 }
-
 .edit-task__button-edit {
   margin: 10px;
   width: 200px;
 
 }
-
 .edit-task__form {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
 }
-
 .input__title {
   font-weight: bold;
 }
-
 .input_file {
   display: none;
 }
-
 .button-file {
   cursor: pointer;
   color: black;
@@ -303,7 +314,6 @@ input {
   align-items: center;
 
 }
-
 .input__input, .button-file, .input_file {
   background-color: white;
   width: 70%;
