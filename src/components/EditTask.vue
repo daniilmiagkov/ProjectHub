@@ -13,13 +13,13 @@
       <div class="input" for="input-title">
         <span class="input__title">Предмет</span>
 <!--        <span class="input__title">{{}}</span>-->
-        <span class="input__title">{{lab.Subject}}</span>
+        <span class="input__title">{{(lab && 'Subject' in lab)  ? lab.Subject : "NOT DATA"}}</span>
       </div>
       <label class="input" for="input-title">
         <span class="input__title">Название</span>
         <input class="input__input" id="input-title" type="text"
                :readonly="!isEdit"
-               :value="lab.Title"
+               v-model ="input.Title"
                :class="{
                  'input_edit': !isEdit,
                  'input_not-edit': isEdit
@@ -48,7 +48,7 @@
         <span class="input__title">Дата сдачи</span>
         <input class="input__input" id="input-date" type="date"
                :readonly="!isEdit"
-               :value="lab.Date"
+               v-model ="input.Date"
                :class="{
                  'input_edit': !isEdit,
                  'input_not-edit': isEdit
@@ -63,8 +63,8 @@
             <input type="radio" name="type" v-bind:id="item"
                    :readonly="!isEdit"
                    @change="changeRadio(item)"/>
-            <div
-                v-bind:id="item + 'placeholder'" class="radio__text"
+<!--            <div
+                 class="radio__text"
                  :class="{
                   'radio_default': true,
             'radio_overdue': isRadio === item && item === 'overdue',
@@ -72,7 +72,13 @@
             'radio_process': isRadio === item && item === 'process',
             'radio_done': isRadio === item && item === 'done',
             'radio_accepted': isRadio === item && item === 'accepted',
-          }"></div></label>
+          }"></div>-->
+            <Square
+                class="radio__text"
+                :Type = "item"
+                :isRadio = "isRadio"
+            />
+          </label>
           <div :class="{
             'radio_hover': isHover === index,
             'radio_non-hover': isHover !== index
@@ -98,32 +104,35 @@
 
 <script setup>
 import {inject, onMounted, ref, watch} from "vue";
+import Square from "./Square.vue";
 const modal = inject('modal');
 const isHover = ref();
 let lab = ref({})
 let isEdit = ref(false);
 let labEdit = ref({})
+let input = ref({
+  Title: "",
+  Date: "",
+})
 let isRadio = ref();
 const fileNameMethod = ref({name: ""});
 const fileNameLab = ref({name: ""});
 
 onMounted(()=> {
-// Вызовем функцию при первоначальном отображении компонента
-  handleShow();
-
-  // Следим за изменениями modal.show
   watch(() => modal.value.data, (newValue, oldValue) => {
     if (newValue) {
-      // Если modal.show изменилось на true, вызываем функцию
-      console.log(modal.value.data)
+      // console.log(modal.value.data)
       handleShow();
     }
+  });
+  watch(input, (newValue, oldValue) => {
   });
 })
 function save() {
   isEdit.value = false;
-  console.log(isEdit)
+  // console.log(isEdit)
   // app.update()
+
 }
 
 function changeRadio(item) {
@@ -133,7 +142,7 @@ function changeRadio(item) {
 
 function edit() {
   isEdit.value = true;
-  console.log(isEdit)
+  // console.log(isEdit)
 }
 function hoverHandler(index) {
   this.isHover = index;
@@ -160,33 +169,16 @@ function loadFile(fileName, event) {
 function handleShow() {
   // Ваш код для выполнения при отображении компонента
   lab = modal.value.data;
-  // isRadio.value = lab.Type;
-  // console.log("lab")
   console.log(lab)
+  isRadio.value = lab.Type;
+  input = lab;
+  // console.log("lab")
 };
 </script>
 
 <style scoped lang="scss">
 @import "../css/colors.scss";
 
-.radio_default {
-  background-color: $gray-1;
-}
-.radio_overdue {
-  background-color: $color-lab-overdue;
-}
-.radio_process {
-  background-color: $color-lab-process;
-}
-.radio_not_done {
-  background-color: $color-lab-not-done;
-}
-.radio_done {
-  background-color: $color-lab-done;
-}
-.radio_accepted {
-  background-color: $color-lab-accepted;
-}
 .input_edit {
   color: $gray-6;
 }
@@ -263,9 +255,9 @@ input[type='radio'] {
   position: fixed;
   top: 15%;
   z-index: 9000;
-  background-color: $color-primary-light;
+  background-color: $color-primary-light-1;
   //background-color: $white;
-  border: 7px outset $color-primary-light;
+  border: 7px outset $color-primary-light-1;
 }
 .edit-task__header {
   display: flex;
