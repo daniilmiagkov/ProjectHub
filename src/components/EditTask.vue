@@ -13,13 +13,13 @@
       <div class="input" for="input-title">
         <span class="input__title">Предмет</span>
 <!--        <span class="input__title">{{}}</span>-->
-        <span class="input__title">{{lab.Subject}}</span>
+        <span class="input__title">{{(lab && 'Subject' in lab)  ? lab.Subject : "NOT DATA"}}</span>
       </div>
       <label class="input" for="input-title">
         <span class="input__title">Название</span>
         <input class="input__input" id="input-title" type="text"
                :readonly="!isEdit"
-               :value="lab.Title"
+               :value="(lab && 'Title' in lab)  ? lab.Title : 'NOT DATA'"
                :class="{
                  'input_edit': !isEdit,
                  'input_not-edit': isEdit
@@ -48,7 +48,7 @@
         <span class="input__title">Дата сдачи</span>
         <input class="input__input" id="input-date" type="date"
                :readonly="!isEdit"
-               :value="lab.Date"
+               :value="(lab && 'Data' in lab)  ? lab.Data : 'NOT DATA'"
                :class="{
                  'input_edit': !isEdit,
                  'input_not-edit': isEdit
@@ -108,8 +108,8 @@ const fileNameMethod = ref({name: ""});
 const fileNameLab = ref({name: ""});
 
 onMounted(()=> {
-// Вызовем функцию при первоначальном отображении компонента
-  handleShow();
+// // Вызовем функцию при первоначальном отображении компонента
+//   handleShow();
 
   // Следим за изменениями modal.show
   watch(() => modal.value.data, (newValue, oldValue) => {
@@ -160,9 +160,9 @@ function loadFile(fileName, event) {
 function handleShow() {
   // Ваш код для выполнения при отображении компонента
   lab = modal.value.data;
-  // isRadio.value = lab.Type;
-  // console.log("lab")
   console.log(lab)
+  isRadio.value = lab.Type;
+  // console.log("lab")
 };
 </script>
 

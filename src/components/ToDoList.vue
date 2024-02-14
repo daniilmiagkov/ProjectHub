@@ -54,6 +54,7 @@ fetch(`http://localhost:3000/database/${props.path}/${props.path}_subject.json` 
 .to-do-list {
   background-color: $color-primary-light;
   border-radius: 10px;
+  height: 100%;
 }
 
 .to-do-list__list {
