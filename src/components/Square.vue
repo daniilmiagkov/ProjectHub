@@ -1,7 +1,7 @@
 <template>
   <div
       :class="{
-                  'radio_default': true,
+            'radio_default': true,
             'radio_overdue': props.isRadio === props.Type && props.Type === 'overdue',
             'radio_not_done': props.isRadio === props.Type &&props.Type === 'not done',
             'radio_process':props.isRadio === props.Type && props.Type=== 'process',
@@ -23,7 +23,7 @@ const props = defineProps({
 @import "../css/colors.scss";
 
 .radio_default {
-  background-color: $gray-1;
+  background-color: $color-lab-default;
 }
 .radio_overdue {
   background-color: $color-lab-overdue;

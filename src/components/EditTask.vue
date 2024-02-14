@@ -19,7 +19,7 @@
         <span class="input__title">Название</span>
         <input class="input__input" id="input-title" type="text"
                :readonly="!isEdit"
-               :value="(lab && 'Title' in lab)  ? lab.Title : 'NOT DATA'"
+               v-model ="input.Title"
                :class="{
                  'input_edit': !isEdit,
                  'input_not-edit': isEdit
@@ -48,7 +48,7 @@
         <span class="input__title">Дата сдачи</span>
         <input class="input__input" id="input-date" type="date"
                :readonly="!isEdit"
-               :value="lab.Date"
+               v-model ="input.Date"
                :class="{
                  'input_edit': !isEdit,
                  'input_not-edit': isEdit
@@ -110,27 +110,29 @@ const isHover = ref();
 let lab = ref({})
 let isEdit = ref(false);
 let labEdit = ref({})
+let input = ref({
+  Title: "",
+  Date: "",
+})
 let isRadio = ref();
 const fileNameMethod = ref({name: ""});
 const fileNameLab = ref({name: ""});
 
 onMounted(()=> {
-// // Вызовем функцию при первоначальном отображении компонента
-//   handleShow();
-
-  // Следим за изменениями modal.show
   watch(() => modal.value.data, (newValue, oldValue) => {
     if (newValue) {
-      // Если modal.show изменилось на true, вызываем функцию
-      console.log(modal.value.data)
+      // console.log(modal.value.data)
       handleShow();
     }
+  });
+  watch(input, (newValue, oldValue) => {
   });
 })
 function save() {
   isEdit.value = false;
-  console.log(isEdit)
+  // console.log(isEdit)
   // app.update()
+
 }
 
 function changeRadio(item) {
@@ -140,7 +142,7 @@ function changeRadio(item) {
 
 function edit() {
   isEdit.value = true;
-  console.log(isEdit)
+  // console.log(isEdit)
 }
 function hoverHandler(index) {
   this.isHover = index;
@@ -169,6 +171,7 @@ function handleShow() {
   lab = modal.value.data;
   console.log(lab)
   isRadio.value = lab.Type;
+  input = lab;
   // console.log("lab")
 };
 </script>
@@ -252,9 +255,9 @@ input[type='radio'] {
   position: fixed;
   top: 15%;
   z-index: 9000;
-  background-color: $color-primary-light;
+  background-color: $color-primary-light-1;
   //background-color: $white;
-  border: 7px outset $color-primary-light;
+  border: 7px outset $color-primary-light-1;
 }
 .edit-task__header {
   display: flex;

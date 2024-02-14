@@ -25,7 +25,7 @@ provide('modal', modal);
 body {
 }
 .blur {
-  filter: blur(5px);
+  filter: blur(3px);
 }
 .app {
   margin: 20px;

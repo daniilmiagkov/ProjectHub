@@ -52,7 +52,7 @@ fetch(`http://localhost:3000/database/${props.path}/${props.path}_subject.json` 
 @import "../css/colors.scss";
 
 .to-do-list {
-  background-color: $color-primary-light;
+  background-color: $color-primary-light-1;
   border-radius: 10px;
   height: 100%;
 }

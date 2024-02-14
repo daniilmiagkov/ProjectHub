@@ -66,7 +66,6 @@ function show() {
 }
 
 .list__grid-element {
-  background-color: white;
   border-radius: 5px;
   padding-top: 100%;
   cursor: pointer;

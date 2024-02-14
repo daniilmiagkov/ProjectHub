@@ -25,7 +25,7 @@ let list = ref([]);
 .today-list {
   padding: 10px 10px 20px;
   width: 100%;
-  background-color: $color-primary-light;
+  background-color: $color-primary-light-1;
   /*height: 600px;*/
   border-radius: 10px;
 }
