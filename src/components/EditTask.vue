@@ -48,7 +48,7 @@
         <span class="input__title">Дата сдачи</span>
         <input class="input__input" id="input-date" type="date"
                :readonly="!isEdit"
-               :value="(lab && 'Data' in lab)  ? lab.Data : 'NOT DATA'"
+               :value="lab.Date"
                :class="{
                  'input_edit': !isEdit,
                  'input_not-edit': isEdit
@@ -63,8 +63,8 @@
             <input type="radio" name="type" v-bind:id="item"
                    :readonly="!isEdit"
                    @change="changeRadio(item)"/>
-            <div
-                v-bind:id="item + 'placeholder'" class="radio__text"
+<!--            <div
+                 class="radio__text"
                  :class="{
                   'radio_default': true,
             'radio_overdue': isRadio === item && item === 'overdue',
@@ -72,7 +72,13 @@
             'radio_process': isRadio === item && item === 'process',
             'radio_done': isRadio === item && item === 'done',
             'radio_accepted': isRadio === item && item === 'accepted',
-          }"></div></label>
+          }"></div>-->
+            <Square
+                class="radio__text"
+                :Type = "item"
+                :isRadio = "isRadio"
+            />
+          </label>
           <div :class="{
             'radio_hover': isHover === index,
             'radio_non-hover': isHover !== index
@@ -98,6 +104,7 @@
 
 <script setup>
 import {inject, onMounted, ref, watch} from "vue";
+import Square from "./Square.vue";
 const modal = inject('modal');
 const isHover = ref();
 let lab = ref({})
@@ -169,24 +176,6 @@ function handleShow() {
 <style scoped lang="scss">
 @import "../css/colors.scss";
 
-.radio_default {
-  background-color: $gray-1;
-}
-.radio_overdue {
-  background-color: $color-lab-overdue;
-}
-.radio_process {
-  background-color: $color-lab-process;
-}
-.radio_not_done {
-  background-color: $color-lab-not-done;
-}
-.radio_done {
-  background-color: $color-lab-done;
-}
-.radio_accepted {
-  background-color: $color-lab-accepted;
-}
 .input_edit {
   color: $gray-6;
 }
