@@ -8,7 +8,7 @@
         button"
           @click="closeModal">Закрыть</button>
     </div>
-    <form class="edit-task__form">
+    <form class="edit-task__form" @submit.prevent="submitForm" action="http://localhost:3000/database/lab" method="post">
 
       <div class="input" for="input-title">
         <span class="input__title">Предмет</span>
@@ -60,23 +60,11 @@
              @mouseover="hoverHandler(index)"
              @mouseout="hoverHandler(null)">
           <label>
-            <input type="radio" name="type" v-bind:id="item"
-                   :readonly="!isEdit"
-                   @change="changeRadio(item)"/>
-<!--            <div
-                 class="radio__text"
-                 :class="{
-                  'radio_default': true,
-            'radio_overdue': isRadio === item && item === 'overdue',
-            'radio_not_done': isRadio === item && item === 'not done',
-            'radio_process': isRadio === item && item === 'process',
-            'radio_done': isRadio === item && item === 'done',
-            'radio_accepted': isRadio === item && item === 'accepted',
-          }"></div>-->
             <Square
                 class="radio__text"
                 :Type = "item"
                 :isRadio = "isRadio"
+                @click="changeRadio(item)"
             />
           </label>
           <div :class="{
@@ -86,37 +74,39 @@
         </div>
 
       </div>
+      <button
+          :class="{'visible': isEdit, 'hide': !isEdit}"
+          class="edit-task__button-edit button"
+          @click="save()"
+          type="submit" value="Отправить">Отправить</button>
+      <button
+          :class="{'visible': !isEdit, 'hide': isEdit}"
+          class="edit-task__button-edit button"
+          @click="edit()"
+      type="button">Редактировать
+      </button>
     </form>
-    <button
-        :class="{'visible': isEdit, 'hide': !isEdit}"
-      class="edit-task__button-edit button"
-      @click="save()">Сохранить
-    </button>
-    <button
-        :class="{'visible': !isEdit, 'hide': isEdit}"
-        class="edit-task__button-edit button"
-      @click="edit()">Редактировать
-    </button>
 
 
   </div>
 </template>
 
 <script setup>
-import {inject, onMounted, ref, watch} from "vue";
+import {inject, onMounted, ref, watch, defineEmits} from "vue";
 import Square from "./Square.vue";
 const modal = inject('modal');
+const submit = inject('submit');
 const isHover = ref();
 let lab = ref({})
 let isEdit = ref(false);
 let labEdit = ref({})
 let input = ref({
-  Title: "",
-  Date: "",
 })
+let oldValue = ref({});
 let isRadio = ref();
 const fileNameMethod = ref({name: ""});
 const fileNameLab = ref({name: ""});
+const emit = defineEmits();
 
 onMounted(()=> {
   watch(() => modal.value.data, (newValue, oldValue) => {
@@ -128,16 +118,52 @@ onMounted(()=> {
   watch(input, (newValue, oldValue) => {
   });
 })
+onMounted(() => {
+    console.log( document.getElementById(lab.Type))
+  // document.getElementById(lab.Type).checked = "checked";
+})
 function save() {
   isEdit.value = false;
   // console.log(isEdit)
   // app.update()
+  // console.log(input.value)
 
 }
 
+function submitForm(event) {
+  event.preventDefault();
+  if (JSON.stringify(input.value) !== JSON.stringify(oldValue.value) ) {
+    fetch(`http://localhost:3000/database/lab`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(input.value)
+    })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response;
+        })
+        .then(data => {
+          console.log('Response received:', data);
+          // emit('submit', input.value);
+          submit.value.data = input.value;
+
+        })
+        .catch(error => {
+          console.error('There was a problem with your fetch operation:', error);
+        });
+    oldValue.value = Object.assign({}, input.value)
+  }
+
+}
 function changeRadio(item) {
-  if (isEdit.value)
-  isRadio.value = item;
+  if (isEdit.value) {
+    isRadio.value = item;
+    input.value.Type = item;
+  }
 }
 
 function edit() {
@@ -169,9 +195,11 @@ function loadFile(fileName, event) {
 function handleShow() {
   // Ваш код для выполнения при отображении компонента
   lab = modal.value.data;
-  console.log(lab)
   isRadio.value = lab.Type;
-  input = lab;
+  input.value = Object.assign({}, lab)
+  oldValue.value = Object.assign({}, lab)
+  // console.log(input.value, lab)
+
   // console.log("lab")
 };
 </script>
@@ -237,7 +265,7 @@ function handleShow() {
   border-radius: 10px;
 }
 input[type='radio'] {
-  display: none;
+  //display: none;
 }
 .edit-task {
   display: flex;
@@ -289,6 +317,9 @@ input {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
+  margin-top: 30px;
+  justify-content: space-between;
 }
 .input__title {
   font-weight: bold;

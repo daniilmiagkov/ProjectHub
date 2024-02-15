@@ -63,6 +63,12 @@ export class Lab {
             writable: true,
             value: ""
         });
+        Object.defineProperty(this, "FileName", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: ""
+        });
         Object.defineProperty(this, "FileMethod", {
             enumerable: true,
             configurable: true,
@@ -70,6 +76,12 @@ export class Lab {
             value: ""
         });
         Object.defineProperty(this, "FileLab", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: ""
+        });
+        Object.defineProperty(this, "Path", {
             enumerable: true,
             configurable: true,
             writable: true,

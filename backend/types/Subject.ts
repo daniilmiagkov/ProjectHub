@@ -22,8 +22,10 @@ export class Visit {
 
 export class Lab {
     Title: string = "";
+    FileName: string = "";
     FileMethod: string = "";
     FileLab: string = "";
+    Path: string = "";
     // Tasks: Array<Task> ;
     Date: String = "";
     Subject: string = "";
