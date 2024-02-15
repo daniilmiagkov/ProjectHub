@@ -8,7 +8,7 @@
         button"
           @click="closeModal">Закрыть</button>
     </div>
-    <form class="edit-task__form">
+    <form class="edit-task__form" @submit.prevent="submitForm" action="http://localhost:3000/database/lab" method="post">
 
       <div class="input" for="input-title">
         <span class="input__title">Предмет</span>
@@ -86,17 +86,18 @@
         </div>
 
       </div>
+      <button
+          :class="{'visible': isEdit, 'hide': !isEdit}"
+          class="edit-task__button-edit button"
+          @click="save()"
+          type="submit" value="Отправить">Отправить</button>
+      <button
+          :class="{'visible': !isEdit, 'hide': isEdit}"
+          class="edit-task__button-edit button"
+          @click="edit()"
+      type="button">Редактировать
+      </button>
     </form>
-    <button
-        :class="{'visible': isEdit, 'hide': !isEdit}"
-      class="edit-task__button-edit button"
-      @click="save()">Сохранить
-    </button>
-    <button
-        :class="{'visible': !isEdit, 'hide': isEdit}"
-        class="edit-task__button-edit button"
-      @click="edit()">Редактировать
-    </button>
 
 
   </div>
@@ -111,9 +112,8 @@ let lab = ref({})
 let isEdit = ref(false);
 let labEdit = ref({})
 let input = ref({
-  Title: "",
-  Date: "",
 })
+let oldValue = ref({});
 let isRadio = ref();
 const fileNameMethod = ref({name: ""});
 const fileNameLab = ref({name: ""});
@@ -132,12 +132,40 @@ function save() {
   isEdit.value = false;
   // console.log(isEdit)
   // app.update()
+  // console.log(input.value)
 
 }
+function submitForm(event) {
+  event.preventDefault();
+  if (JSON.stringify(input.value) !== JSON.stringify(oldValue.value) ) {
+    fetch(`http://localhost:3000/database/lab`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json;charset=utf-8'
+      },
+      body: JSON.stringify(input.value)
+    })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response;
+        })
+        .then(data => {
+          console.log('Response received:', data);
+        })
+        .catch(error => {
+          console.error('There was a problem with your fetch operation:', error);
+        });
+    oldValue.value = Object.assign({}, input.value)
+  }
 
+}
 function changeRadio(item) {
-  if (isEdit.value)
-  isRadio.value = item;
+  if (isEdit.value) {
+    isRadio.value = item;
+    input.value.Type = item;
+  }
 }
 
 function edit() {
@@ -169,9 +197,11 @@ function loadFile(fileName, event) {
 function handleShow() {
   // Ваш код для выполнения при отображении компонента
   lab = modal.value.data;
-  console.log(lab)
   isRadio.value = lab.Type;
-  input = lab;
+  input.value = Object.assign({}, lab)
+  oldValue.value = Object.assign({}, lab)
+  // console.log(input.value, lab)
+
   // console.log("lab")
 };
 </script>
@@ -289,6 +319,9 @@ input {
   flex-direction: column;
   align-items: center;
   width: 100%;
+  height: 100%;
+  margin-top: 30px;
+  justify-content: space-between;
 }
 .input__title {
   font-weight: bold;

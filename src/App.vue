@@ -25,14 +25,19 @@ provide('modal', modal);
 body {
 }
 .blur {
-  filter: blur(3px);
+  filter: blur(4px);
+  transition: filter 0.5s linear;
 }
 .app {
   margin: 20px;
-  display: grid;
+  display: flex;
   justify-items: center;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fit,minmax(500px, 1fr));
+  flex-direction: column;
+  align-items: center;
+  //display: grid;
+  //justify-items: center;
+  //gap: 20px;
+  //grid-template-columns: repeat(auto-fit,minmax(500px, 1fr));
 }
 
 </style>
