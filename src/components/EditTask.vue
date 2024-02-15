@@ -60,23 +60,11 @@
              @mouseover="hoverHandler(index)"
              @mouseout="hoverHandler(null)">
           <label>
-            <input type="radio" name="type" v-bind:id="item"
-                   :readonly="!isEdit"
-                   @change="changeRadio(item)"/>
-<!--            <div
-                 class="radio__text"
-                 :class="{
-                  'radio_default': true,
-            'radio_overdue': isRadio === item && item === 'overdue',
-            'radio_not_done': isRadio === item && item === 'not done',
-            'radio_process': isRadio === item && item === 'process',
-            'radio_done': isRadio === item && item === 'done',
-            'radio_accepted': isRadio === item && item === 'accepted',
-          }"></div>-->
             <Square
                 class="radio__text"
                 :Type = "item"
                 :isRadio = "isRadio"
+                @click="changeRadio(item)"
             />
           </label>
           <div :class="{
@@ -129,6 +117,10 @@ onMounted(()=> {
   });
   watch(input, (newValue, oldValue) => {
   });
+})
+onMounted(() => {
+    console.log( document.getElementById(lab.Type))
+  // document.getElementById(lab.Type).checked = "checked";
 })
 function save() {
   isEdit.value = false;
@@ -273,7 +265,7 @@ function handleShow() {
   border-radius: 10px;
 }
 input[type='radio'] {
-  display: none;
+  //display: none;
 }
 .edit-task {
   display: flex;
