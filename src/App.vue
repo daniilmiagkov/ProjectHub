@@ -1,8 +1,11 @@
 <template>
   <div class="app">
 <!--    <TodayList :class="{'blur': modal.show}"/>-->
-    <AllToDoList  :class="{'blur': modal.show}"/>
-    <EditTask></EditTask>
+    <AllToDoList
+        :class="{'blur': modal.show}"
+    />
+    <EditTask
+        @submit="handleSubmitEvent"></EditTask>
   </div>
 </template>
 
@@ -10,13 +13,19 @@
 import AllToDoList from '@components/AllToDoList.vue'
 import TodayList from "./components/TodayList.vue";
 import EditTask from "./components/EditTask.vue";
-
 import {provide, ref} from "vue";
 const modal = ref({
   show: false,
   data: null }
 );
+const submit = ref({
+  data: ""
+})
+provide('submit', submit);
 provide('modal', modal);
+function handleSubmitEvent(data) {
+  submit.value.data = data
+}
 
 </script>
 

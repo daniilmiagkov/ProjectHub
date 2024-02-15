@@ -4,47 +4,95 @@
     <Squares
         v-if="isLabs"
         title="Лабораторные"
-        :list="subject.Labs"
+        :list="labs"
     ></Squares>
-<!--    <Squares-->
-<!--        v-if="subject.Visitis.length > 0"-->
-<!--        title="Посещения"></Squares>-->
+    <Squares
+        title="Посещения"></Squares>
   </div>
 </template>
 
 <script setup lang="ts">
-import {defineProps, ref} from "vue";
+import {defineProps, inject, onMounted, ref, watch} from "vue";
 import Squares from "./Squares.vue";
 const props = defineProps({
   path: String,
 })
-
+const labs = ref([])
 const isLabs = ref(true)
+let subject = ref({});
+const submit = inject('submit')
+function getLabData(url: String) {
+  return new Promise((resolve, reject) => {
+    fetch(url)
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          } else {
+            throw new Error(`Ошибка HTTP: ${response.status}`);
+          }
+        })
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((error) => {
+          reject(error);
+        });
+  });
+}
 
-let subject = ref([]);
+onMounted(() => {
+  fetch(`http://localhost:3000/database/${props.path}/${props.path}_subject`)
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        else {
+          console.log(response)
+        }
+      })
+      .then((data) => {
+        subject.value = data;
+        // console.log(data)
+        if (subject.value.Labs.length > 0) {
+          isLabs.value = true
+          for (let lab of subject.value.Labs) {
+                getLabData(
+                    `http://localhost:3000/database/${props.path}/${props.path}_lab_${lab}`)
+                    .then((data) => {
+                      // console.log(data); // Вывести полученные данные
+                      labs.value.push(data)
+                    })
+                    .catch((error) => {
+                      console.error(error); // Обработать ошибку, если возникла
+                    })
+          }
+        }
+        else {
+          isLabs.value = false
+        }
+      })
+      .catch((error) => console.log(error))
 
-fetch(`http://localhost:3000/database/${props.path}/${props.path}_subject.json` )
-    .then((response) => {
-      if (response.ok) {
-        return response.json();
-      }
-      else {
-        console.log(response)
-      }
-    })
-    .then((data) => {
-      subject.value = data;
-      // console.log(data)
-      if (subject.value.Labs.length > 0) {
-        isLabs.value = true
-      }
-      else {
-        isLabs.value = false
-      }
-      // console.log(subject.value.Labs)
-    })
-    .catch((error) => console.log(error))
+})
+watch(() => submit.value.data, (newValue, oldValue) => {
+  if (newValue.Subject === subject.value.Title) {
+    console.log("newValue", newValue)
+    getLabData(
+        `http://localhost:3000/database/${props.path}/${props.path}_lab_${newValue.FileName}`)
+        .then((data) => {
+          console.log(data); // Вывести полученные данные
+          for (let lab of labs.value) {
+            if (lab.FileName === newValue.FileName) {
+              lab = Object.assign(lab, newValue)
+            }
+          }
+        })
+        .catch((error) => {
+          console.error(error); // Обработать ошибку, если возникла
+        })
+  }
 
+});
 
 </script>
 

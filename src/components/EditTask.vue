@@ -104,9 +104,10 @@
 </template>
 
 <script setup>
-import {inject, onMounted, ref, watch} from "vue";
+import {inject, onMounted, ref, watch, defineEmits} from "vue";
 import Square from "./Square.vue";
 const modal = inject('modal');
+const submit = inject('submit');
 const isHover = ref();
 let lab = ref({})
 let isEdit = ref(false);
@@ -117,6 +118,7 @@ let oldValue = ref({});
 let isRadio = ref();
 const fileNameMethod = ref({name: ""});
 const fileNameLab = ref({name: ""});
+const emit = defineEmits();
 
 onMounted(()=> {
   watch(() => modal.value.data, (newValue, oldValue) => {
@@ -135,6 +137,7 @@ function save() {
   // console.log(input.value)
 
 }
+
 function submitForm(event) {
   event.preventDefault();
   if (JSON.stringify(input.value) !== JSON.stringify(oldValue.value) ) {
@@ -153,6 +156,9 @@ function submitForm(event) {
         })
         .then(data => {
           console.log('Response received:', data);
+          // emit('submit', input.value);
+          submit.value.data = input.value;
+
         })
         .catch(error => {
           console.error('There was a problem with your fetch operation:', error);

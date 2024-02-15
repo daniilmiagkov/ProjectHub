@@ -7,9 +7,10 @@
 </template>
 
 <script setup lang="ts">
-import {ref} from "vue";
+import {defineProps, ref, defineEmits} from "vue";
 import ToDoList from "./ToDoList.vue";
 let listSubjects = ref([]);
+
 function getListSubjects() {
   fetch('http://localhost:3000/database/names')
       .then((response) => {

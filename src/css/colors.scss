@@ -48,10 +48,9 @@ $btn-primary-label: $white;
 $color-icon-primary: $gray-4;
 $color-icon-secondary: inherit;
 
-
 $color-lab-default: $color-primary-light-2;
 $color-lab-overdue: #ff0000;
 $color-lab-not-done: #ffffff;
-$color-lab-process: #f7ff23;
-$color-lab-accepted: #30ff00;
+$color-lab-process: #ffe24f;
+$color-lab-accepted: #68b60a;
 $color-lab-done: lighten($color-lab-accepted, 30%);
