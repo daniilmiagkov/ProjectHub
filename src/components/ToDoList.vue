@@ -59,7 +59,7 @@ onMounted(() => {
           for (let lab of subject.value.Labs) {
                 getLabData(
                     `http://localhost:3000/database/${props.path}/${props.path}_lab_${lab}`)
-                    .then((data: unknown) => {
+                    .then((data: Lab) => {
                       // console.log(data); // Вывести полученные данные
                       labs.value.push(data)
                     })
@@ -67,9 +67,11 @@ onMounted(() => {
                       console.error(error); // Обработать ошибку, если возникла
                     })
           }
+
         }
         else {
-          isLabs.value = false
+          // isLabs.value = false
+            labs.value.push(new Lab())
         }
       })
       .catch((error) => console.log(error))

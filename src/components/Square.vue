@@ -7,7 +7,12 @@
             'radio_process':props.isRadio === props.Type && props.Type=== 'process',
             'radio_done': props.isRadio === props.Type &&props.Type === 'done',
             'radio_accepted':props.isRadio === props.Type && props.Type === 'accepted',
-          }"></div>
+          }"><img
+      :class="{
+            'square__add': props.Add,
+            'hide': !props.Add,
+      }"
+          src="/img/Asset 6.png"/></div>
 </template>
 
 <script setup lang="ts">
@@ -16,6 +21,7 @@ import {defineProps} from "vue";
 const props = defineProps({
   Type: String,
   isRadio: String,
+  Add: Boolean
 })
 </script>
 
@@ -41,4 +47,12 @@ const props = defineProps({
   background-color: $color-lab-accepted;
 }
 
+.square__add {
+height: 60%;
+  width: 60%;
+}
+
+.hide {
+  display: none;
+}
 </style>

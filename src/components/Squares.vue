@@ -2,16 +2,20 @@
   <div class="list">
     <h3 class="list__title" @click="isShow = !isShow">{{props.title}}</h3>
     <div v-bind:class="{ list__grid_show: isShow, list__grid_hide: !isShow} ">
-<!--      <div-->
-<!--          class="list__grid-element"-->
-<!--          v-for="item in props.list"-->
-<!--          ></div>-->
+      <!--      <div-->
+      <!--          class="list__grid-element"-->
+      <!--          v-for="item in props.list"-->
+      <!--          ></div>-->
       <Square
-          class="list__grid-element"
-          v-for="item in props.list"
+          v-for="(item, index) in props.list"
           :Type = "item.Type"
           :isRadio = "item.Type"
-          @click="openModal(item)"
+          @click="openModal(item, index)"
+          :class="{
+            'list__grid-element': index !== props.list.length - 1,
+            'list__grid-element-add': index === props.list.length - 1
+          } "
+          :Add="index === props.list.length - 1"
       />
     </div>
   </div>
@@ -21,27 +25,29 @@
 import {defineProps, ref} from "vue";
 import { inject } from 'vue';
 import Square from "./Square.vue";
+import {Lab} from "../../backend/types/Subject";
 
 const modal = inject('modal');
 const props = defineProps({
   title: String,
   list: Array
 })
-const openModal = (item) => {
+const openModal = (item: Lab, index: number) => {
   modal.value.show = true;
   modal.value.data = item;
+  if (index === props.list.length -1) {
+    const lab = Object.assign({}, item)
+    lab.FileName = lab.FileName
+    props.list.push(lab);
+  }
   // console.log(item)
 };
 let isShow = ref(false);
 
-function show() {
-  isShow.value = !isShow.value;
-}
-
 </script>
 
 <style scoped lang="scss">
-
+@import '../css/colors.scss';
 .list {
   padding: 4px 10px 6px;
 }
@@ -67,8 +73,18 @@ function show() {
 
 .list__grid-element {
   border-radius: 5px;
-  padding-top: 100%;
+  aspect-ratio: 1; /* Определяет соотношение сторон, чтобы ширина и высота были в пропорции 1:1 */
+  //height: 100%;
   cursor: pointer;
 
+}
+.list__grid-element-add {
+  border-radius: 5px;    aspect-ratio: 1; /* Определяет соотношение сторон, чтобы ширина и высота были в пропорции 1:1 */
+
+  //height: 100%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>
