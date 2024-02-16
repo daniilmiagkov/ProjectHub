@@ -91,17 +91,17 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {inject, onMounted, ref, watch, defineEmits} from "vue";
 import Square from "./Square.vue";
+import {Lab} from "../../backend/types/Subject";
 const modal = inject('modal');
 const submit = inject('submit');
 const isHover = ref();
-let lab = ref({})
+let lab = ref(new Lab())
 let isEdit = ref(false);
 let labEdit = ref({})
-let input = ref({
-})
+let input = ref(new Lab())
 let oldValue = ref({});
 let isRadio = ref();
 const fileNameMethod = ref({name: ""});
