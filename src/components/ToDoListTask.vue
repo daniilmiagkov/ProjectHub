@@ -1,14 +1,15 @@
 <template>
   <button class="to-do-list__task button">
-    <span class="to-do-list__number to-do-list__item">{{lab.File}}</span>
-    <span class="to-do-list__date to-do-list__item">{{new Date(lab.Date).toLocaleDateString('ru-RU', {year: 'numeric', month: 'long', day: 'numeric',})}}</span>
+    <span class="to-do-list__number to-do-list__item">{{lab.FileName}}</span>
+    <span class="to-do-list__date to-do-list__item">{{lab.Date}}</span>
   </button>
 </template>
 
 <script setup lang="ts">
 import {defineProps, ref} from "vue";
+import {Lab} from "../../backend/types/Subject";
 
-const lab = ref({});
+const lab = ref(new Lab());
 
 const props = defineProps({
   path: String

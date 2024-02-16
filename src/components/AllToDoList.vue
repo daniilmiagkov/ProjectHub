@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps, ref, defineEmits} from "vue";
+import {ref} from "vue";
 import ToDoList from "./ToDoList.vue";
 let listSubjects = ref([]);
 

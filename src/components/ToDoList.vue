@@ -14,16 +14,17 @@
 <script setup lang="ts">
 import {defineProps, inject, onMounted, ref, watch} from "vue";
 import Squares from "./Squares.vue";
+import {Lab, Subject} from "../../backend/types/Subject";
 const props = defineProps({
   path: String,
 })
-const labs = ref([])
+const labs = ref<Array<Lab>>([])
 const isLabs = ref(true)
-let subject = ref({});
+let subject = ref(new Subject());
 const submit = inject('submit')
-function getLabData(url: String) {
+function getLabData(url: string) {
   return new Promise((resolve, reject) => {
-    fetch(url)
+    fetch(new URL(url))
         .then((response) => {
           if (response.ok) {
             return response.json();
@@ -58,7 +59,7 @@ onMounted(() => {
           for (let lab of subject.value.Labs) {
                 getLabData(
                     `http://localhost:3000/database/${props.path}/${props.path}_lab_${lab}`)
-                    .then((data) => {
+                    .then((data: unknown) => {
                       // console.log(data); // Вывести полученные данные
                       labs.value.push(data)
                     })
@@ -74,7 +75,7 @@ onMounted(() => {
       .catch((error) => console.log(error))
 
 })
-watch(() => submit.value.data, (newValue, oldValue) => {
+watch(() => submit.value.data, (newValue) => {
   if (newValue.Subject === subject.value.Title) {
     console.log("newValue", newValue)
     getLabData(
