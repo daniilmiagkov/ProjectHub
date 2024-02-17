@@ -21,7 +21,7 @@
     <transition-group name="main-grid" tag="div"
                       v-bind:class="{ list__grid_show: isShow, list__grid_hide: !isShow} ">
       <Square
-          :key="index"
+          :key="item.FileName"
           v-for="(item, index) in props.list"
           :Type = "item.Type"
           :isRadio = "item.Type"
@@ -74,12 +74,12 @@ let isShow = ref(false);
 .main-grid-enter-active,
 .main-grid-leave-active {
   transition: 0.2s ease;
-  transition-property: opacity, transform, grid-template-columns;
+  transition-property: opacity, transform;
 }
 .main-grid-enter-from,
 .main-grid-leave-to {
   opacity: 0;
-  transform: translateY(-30px);
+  //transform: translateY(-30px);
 }
 .list__title{
   //padding: 4px 10px 6px;
