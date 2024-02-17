@@ -1,5 +1,7 @@
 <template>
-  <div class="to-do-list">
+  <div class="to-do-list"
+       :style="{'width': width +'px'}"
+  >
     <h1 class="to-do-list__title">{{subject.Title}}</h1>
     <Squares
         v-if="isLabs"
@@ -7,22 +9,26 @@
         :list="labs"
     ></Squares>
     <Squares
-        title="Посещения"></Squares>
+        title="Посещения"
+      :list="visits">
+    </Squares>
   </div>
 </template>
 
 <script setup lang="ts">
 import {defineProps, inject, onMounted, ref, watch} from "vue";
 import Squares from "./Squares.vue";
-import {Lab, Subject} from "../../backend/types/Subject";
+import {Lab, Subject, Visit} from "../../backend/types/Subject";
 const props = defineProps({
   path: String,
 })
 const labs = ref<Array<Lab>>([])
+const visits = ref<Array<Visit>>([])
 const isLabs = ref(true)
-let subject = ref(new Subject());
+const subject = ref<Subject>(new Subject());
 const submit = inject('submit')
-function getLabData(url: string) {
+const width = ref();
+function getData(url: string) {
   return new Promise((resolve, reject) => {
     fetch(new URL(url))
         .then((response) => {
@@ -42,7 +48,7 @@ function getLabData(url: string) {
 }
 
 onMounted(() => {
-  fetch(`http://localhost:3000/database/${props.path}/${props.path}_subject`)
+  fetch(`http://localhost:3000/database/${props.path}/subject`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -51,14 +57,15 @@ onMounted(() => {
           console.log(response)
         }
       })
-      .then((data) => {
+      .then((data: Subject) => {
         subject.value = data;
-        // console.log(data)
+
+        // console.log(subject.value)
         if (subject.value.Labs.length > 0) {
           isLabs.value = true
           for (let lab of subject.value.Labs) {
-                getLabData(
-                    `http://localhost:3000/database/${props.path}/${props.path}_lab_${lab}`)
+                getData(
+                    `http://localhost:3000/database/${props.path}/${props.path}_${lab}`)
                     .then((data: Lab) => {
                       // console.log(data); // Вывести полученные данные
                       labs.value.push(data)
@@ -67,21 +74,51 @@ onMounted(() => {
                       console.error(error); // Обработать ошибку, если возникла
                     })
           }
-
+          labs.value.sort(function (a, b) {
+            if (a.FileName < b.FileName) return 1;
+            if (a.FileName > b.FileName) return -1;
+            return 0;
+          })
+          // console.log(labs.value)
         }
         else {
           // isLabs.value = false
             labs.value.push(new Lab())
         }
+        if (subject.value.Visits.length > 0) {
+          for (let visit of subject.value.Visits) {
+            getData(
+                `http://localhost:3000/database/${props.path}/${props.path}_${visit}`)
+                .then((data: Visit) => {
+                  // console.log(data); // Вывести полученные данные
+                  visits.value.push(data)
+                })
+                .catch((error) => {
+                  console.error(error); // Обработать ошибку, если возникла
+                })
+          }
+          visits.value.sort(function (a, b) {
+            if (a.FileName < b.FileName) return 1;
+            if (a.FileName > b.FileName) return -1;
+            return 0;
+          })
+        }
+        else {
+          // isLabs.value = false
+          visits.value.push(new Visit())
+        }
       })
       .catch((error) => console.log(error))
-
+  changeWidth()
 })
 watch(() => submit.value.data, (newValue) => {
+
+  console.log("newValue", newValue, subject.value)
   if (newValue.Subject === subject.value.Title) {
     console.log("newValue", newValue)
-    getLabData(
-        `http://localhost:3000/database/${props.path}/${props.path}_lab_${newValue.FileName}`)
+
+    getData(
+        `http://localhost:3000/database/${props.path}/${props.path}_${newValue.FileName}`)
         .then((data) => {
           console.log(data); // Вывести полученные данные
           for (let lab of labs.value) {
@@ -96,7 +133,32 @@ watch(() => submit.value.data, (newValue) => {
   }
 
 });
+// Обработчик изменения размера окна для определения количества столбцов
+window.addEventListener('resize', () => {
+  changeWidth()
+});
 
+function changeWidth() {
+  // console.log(document.getElementById('all-to-do-list').)
+  const w = document.getElementById('all-to-do-list').clientWidth;
+  let a;
+  let i;
+  for (i = 1; i <= 6; i++) {
+    if ((i - 1) * 20 + 350 * (i) <= w) {
+      // console.log((i - 1) * 20 + 350 * (i), w, (w - (i - 1) * 20) / i)
+      width.value = (w - (i - 1) * 20) / i
+
+    }
+    else {
+      return;
+    }
+    // console.log(i)
+  }
+
+  width.value = (w - (i - 1) * 20) / i
+  width.value = 200
+  console.log(w, i, width.value)
+}
 </script>
 
 <style scoped lang="scss">
@@ -106,6 +168,8 @@ watch(() => submit.value.data, (newValue) => {
   background-color: $color-primary-light-1;
   border-radius: 10px;
   height: 100%;
+  //width: 100px;
+  transition: width 0.2s cubic-bezier(0.82, 0.7, 0.7, 0.74);
 }
 
 .to-do-list__list {

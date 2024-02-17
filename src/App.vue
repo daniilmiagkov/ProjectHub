@@ -3,6 +3,7 @@
 <!--    <TodayList :class="{'blur': modal.show}"/>-->
     <AllToDoList
         :class="{'blur': modal.show}"
+        class="transition"
     />
     <EditTask
         @submit="handleSubmitEvent"></EditTask>
@@ -37,8 +38,8 @@ function handleSubmitEvent(data: object) {
 body {
 }
 .blur {
-  filter: blur(4px);
-  transition: filter 0.5s linear;
+  filter: blur(2px);
+  //transition: filter 3s ease;
 }
 .app {
   margin: 20px;

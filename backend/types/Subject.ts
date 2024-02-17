@@ -5,27 +5,29 @@ export class Subject {
     Visits: Array<Visit> = [];
 }
 
-export class Visit {
-    Date: Date = new Date();
-    Type: string = "await";
-    Types: Array<string> = [
-        "cancelled",
-        "skipped",
-        "visited",
-        "disease",
-        "await"
-    ];
-}
-
-export class Lab {
+export class SubjectElement {
     Title: string = "";
     FileName: string = "";
-    FileMethod: string = "";
-    FileLab: string = "";
     Path: string = "";
     // Tasks: Array<Task> ;
     Date: String = "";
     Subject: string = "";
+}
+
+export class Visit extends SubjectElement{
+    Type: string = "await";
+    Types: Array<string> = [
+        "skipped",
+        "await",
+        "disease",
+        "cancelled",
+        "visited",
+    ];
+}
+
+export class Lab extends SubjectElement{
+    FileMethod: string = "";
+    FileLab: string = "";
     Type: string = "not done";
     Types: Array<string> = [
         "overdue",
