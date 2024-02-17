@@ -49,11 +49,11 @@ server.post('/database/lab', (req, res) => {
   res.send();
 })
 
-server.get(new RegExp('/database/\\w+/\\w+_lab_\\w+'), (req, res) => {
+server.get(new RegExp('/database/\\w+/\\w+_\\w+'), (req, res) => {
   res.set('Content-Type', 'application/json');
   
   // Извлекаем параметры из пути запроса
-  const [, dbName, subject, lab] = req.path.match(/\/database\/(\w+)\/(\w+)_lab_(\w+)/);
+  const [, dbName, subject, lab] = req.path.match(/\/database\/(\w+)\/(\w+)_(\w+)/);
   
   // Собираем путь к файлу на основе параметров
   const filePath = `${projectHub}/backend/database/${dbName}/${subject}_${lab}.json`;
@@ -71,14 +71,14 @@ server.get(new RegExp('/database/\\w+/\\w+_lab_\\w+'), (req, res) => {
 });
 
 
-server.get(new RegExp('/database/\\w+/\\w+_subject'), (req, res) => {
+server.get(new RegExp('/database/\\w+/subject'), (req, res) => {
   res.set('Content-Type', 'application/json');
   
   // Извлекаем параметры из пути запроса
-  const [, dbName, subject] = req.path.match(/\/database\/(\w+)\/(\w+)_subject/);
+  const [, dbName] = req.path.match(/\/database\/(\w+)\/subject/);
   
   // Собираем путь к файлу на основе параметров
-  const filePath = `${projectHub}/backend/database/${dbName}/${subject}_subject.json`;
+  const filePath = `${projectHub}/backend/database/${dbName}/subject.json`;
   
   fs.readFile(filePath, (err, data) => {
     if (err) {
