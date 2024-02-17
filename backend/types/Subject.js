@@ -1,5 +1,5 @@
 export class Subject {
-    constructor(title) {
+    constructor() {
         Object.defineProperty(this, "Title", {
             enumerable: true,
             configurable: true,
@@ -24,38 +24,9 @@ export class Subject {
             writable: true,
             value: []
         });
-        this.Title = title;
     }
 }
-export class Visit {
-    constructor() {
-        Object.defineProperty(this, "Date", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: new Date()
-        });
-        Object.defineProperty(this, "Type", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: "await"
-        });
-        Object.defineProperty(this, "Types", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: [
-                "cancelled",
-                "skipped",
-                "visited",
-                "disease",
-                "await"
-            ]
-        });
-    }
-}
-export class Lab {
+export class SubjectElement {
     constructor() {
         Object.defineProperty(this, "Title", {
             enumerable: true,
@@ -64,18 +35,6 @@ export class Lab {
             value: ""
         });
         Object.defineProperty(this, "FileName", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: ""
-        });
-        Object.defineProperty(this, "FileMethod", {
-            enumerable: true,
-            configurable: true,
-            writable: true,
-            value: ""
-        });
-        Object.defineProperty(this, "FileLab", {
             enumerable: true,
             configurable: true,
             writable: true,
@@ -95,6 +54,46 @@ export class Lab {
             value: ""
         });
         Object.defineProperty(this, "Subject", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: ""
+        });
+    }
+}
+export class Visit extends SubjectElement {
+    constructor() {
+        super(...arguments);
+        Object.defineProperty(this, "Type", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: "await"
+        });
+        Object.defineProperty(this, "Types", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: [
+                "skipped",
+                "await",
+                "disease",
+                "cancelled",
+                "visited",
+            ]
+        });
+    }
+}
+export class Lab extends SubjectElement {
+    constructor() {
+        super(...arguments);
+        Object.defineProperty(this, "FileMethod", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: ""
+        });
+        Object.defineProperty(this, "FileLab", {
             enumerable: true,
             configurable: true,
             writable: true,
