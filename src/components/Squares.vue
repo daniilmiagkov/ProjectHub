@@ -1,23 +1,40 @@
 <template>
-  <div class="list">
-    <h3 class="list__title" @click="isShow = !isShow">{{props.title}}</h3>
-    <div v-bind:class="{ list__grid_show: isShow, list__grid_hide: !isShow} ">
-      <!--      <div-->
-      <!--          class="list__grid-element"-->
-      <!--          v-for="item in props.list"-->
-      <!--          ></div>-->
+  <div class="list" >
+    <div class="list__title" @click="isShow = !isShow">
+      <h3 >{{props.title}}</h3>
+      <transition-group name="main-grid" tag="div" class="list__flex">
+        <Square
+            v-for="(item, index) in props.list"
+            :Type = "item.Type"
+            :isRadio = "item.Type"
+            class='list__title-element'
+            :style="{ 'transition-delay': `${index * 0.1}s` }"
+            :class="{
+            // 'list__grid-element': index !== props.list.length - 1,
+            'list__grid_hide': index === props.list.length - 1
+          } "
+            :key="index"
+
+        />
+    </transition-group>
+    </div>
+    <transition-group name="main-grid" tag="div"
+                      v-bind:class="{ list__grid_show: isShow, list__grid_hide: !isShow} ">
       <Square
+          :key="index"
           v-for="(item, index) in props.list"
           :Type = "item.Type"
           :isRadio = "item.Type"
           @click="openModal(item, index)"
+          v-if="isShow"
           :class="{
             'list__grid-element': index !== props.list.length - 1,
             'list__grid-element-add': index === props.list.length - 1
           } "
           :Add="index === props.list.length - 1"
+          :style="{ 'transition-delay': `${index * 0.1}s` }"
       />
-    </div>
+    </transition-group>
   </div>
 </template>
 
@@ -50,11 +67,46 @@ let isShow = ref(false);
 @import '../css/colors.scss';
 .list {
   padding: 4px 10px 6px;
+  cursor: pointer;
+  width: 90%;
 }
 
+.main-grid-enter-active,
+.main-grid-leave-active {
+  transition: 0.2s ease;
+  transition-property: opacity, transform, grid-template-columns;
+}
+.main-grid-enter-from,
+.main-grid-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
 .list__title{
-  padding: 4px 10px 6px;
-  cursor: pointer;
+  //padding: 4px 10px 6px;
+  padding-left: 4px;
+  padding-top: 10px;
+  flex-direction: row;
+  display: flex;
+  align-items: center;
+  //justify-content: space-between;
+  gap: 10px;
+}
+
+.list__flex {
+  display: grid;
+  //flex-direction: row;
+  gap: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(10px, 1fr));
+  //height: 10px;
+  aspect-ratio: 20;
+  //max-width: 200px;
+  width: 100%;
+}
+
+.list__title-element {
+  height: 10px;
+  aspect-ratio: 1;
+  border-radius: 5px;
 }
 
 .list__grid_show {
@@ -87,4 +139,6 @@ let isShow = ref(false);
   align-items: center;
   justify-content: center;
 }
+
+
 </style>

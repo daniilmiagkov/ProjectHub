@@ -118,10 +118,7 @@ onMounted(()=> {
   watch(input, (newValue, oldValue) => {
   });
 })
-onMounted(() => {
-    console.log( document.getElementById(lab.Type))
-  // document.getElementById(lab.Type).checked = "checked";
-})
+
 function save() {
   isEdit.value = false;
   // console.log(isEdit)
