@@ -8,12 +8,12 @@
             :Type = "item.Type"
             :isRadio = "item.Type"
             class='list__title-element'
-            :style="{ 'transition-delay': `${index * 0.1}s` }"
+            :style="{ 'transition-delay': `${index * 0.05}s` }"
             :class="{
             // 'list__grid-element': index !== props.list.length - 1,
             'list__grid_hide': index === props.list.length - 1
           } "
-            :key="index"
+            :key="item.FileName"
 
         />
     </transition-group>
@@ -32,7 +32,7 @@
             'list__grid-element-add': index === props.list.length - 1
           } "
           :Add="index === props.list.length - 1"
-          :style="{ 'transition-delay': `${index * 0.1}s` }"
+          :style="{ 'transition-delay': `${index * 0.03}s` }"
       />
     </transition-group>
   </div>
@@ -52,9 +52,13 @@ const props = defineProps({
 const openModal = (item: Lab, index: number) => {
   modal.value.show = true;
   modal.value.data = item;
+  // console.log(item);
   if (index === props.list.length -1) {
     const lab = Object.assign({}, item)
-    lab.FileName = lab.FileName
+    const str = lab.FileName.split('_')
+    lab.FileName = str[0] + '_' + (parseInt(str[1]) + 1)
+    lab.Title = str[0] + '_' + (parseInt(str[1]) + 1)
+
     props.list.push(lab);
   }
   // console.log(item)
@@ -79,7 +83,6 @@ let isShow = ref(false);
 .main-grid-enter-from,
 .main-grid-leave-to {
   opacity: 0;
-  //transform: translateY(-30px);
 }
 .list__title{
   //padding: 4px 10px 6px;

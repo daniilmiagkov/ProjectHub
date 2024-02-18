@@ -63,7 +63,7 @@
             <Square
                 class="radio__text"
                 :Type = "item"
-                :isRadio = "isRadio"
+                :isRadio = "Type"
                 @click="changeRadio(item)"
             />
           </label>
@@ -103,7 +103,7 @@ const isEdit = ref(false);
 const labEdit = ref({})
 const input = ref(new Lab())
 const oldValue = ref({});
-const isRadio = ref();
+const Type = ref();
 const fileNameMethod = ref({name: ""});
 const fileNameLab = ref({name: ""});
 
@@ -153,7 +153,7 @@ function submitForm(event) {
 }
 function changeRadio(item) {
   if (isEdit.value) {
-    isRadio.value = item;
+    Type.value = item;
     input.value.Type = item;
   }
 }
@@ -187,7 +187,7 @@ function loadFile(fileName, event) {
 function handleShow() {
   // Ваш код для выполнения при отображении компонента
   lab.value = modal.value.data;
-  isRadio.value = lab.Type;
+  Type.value = lab.value.Type;
   input.value = Object.assign({}, lab.value)
   oldValue.value = Object.assign({}, lab.value)
   // console.log(input.value, lab)

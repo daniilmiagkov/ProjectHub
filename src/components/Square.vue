@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import {defineProps} from "vue";
+import {defineProps, onMounted} from "vue";
 
 const props = defineProps({
   Type: String,
