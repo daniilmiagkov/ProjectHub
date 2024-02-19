@@ -53,10 +53,10 @@ server.get(new RegExp('/database/\\w+/\\w+_\\w+'), (req, res) => {
   res.set('Content-Type', 'application/json');
   
   // Извлекаем параметры из пути запроса
-  const [, dbName, subject, lab] = req.path.match(/\/database\/(\w+)\/(\w+)_(\w+)/);
+  const [, dbName, subject, item] = req.path.match(/\/database\/(\w+)\/(\w+)_(\w+)/);
   
   // Собираем путь к файлу на основе параметров
-  const filePath = `${projectHub}/backend/database/${dbName}/${subject}_${lab}.json`;
+  const filePath = `${projectHub}/backend/database/${dbName}/${subject}_${item}.json`;
   
   fs.readFile(filePath, (err, data) => {
     if (err) {

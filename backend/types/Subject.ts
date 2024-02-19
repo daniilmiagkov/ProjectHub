@@ -15,6 +15,7 @@ export class SubjectElement {
     // Tasks: Array<Task> ;
     Date: String = "";
     Subject: string = "";
+    Number: number = 0;
 }
 
 export class Visit extends SubjectElement{
