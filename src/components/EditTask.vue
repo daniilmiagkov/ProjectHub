@@ -64,13 +64,15 @@
                 class="radio__text"
                 :Type = "item"
                 :isRadio = "Type"
+                :Index = "index"
+                :Info = "item"
                 @click="changeRadio(item)"
             />
           </label>
-          <div :class="{
+<!--          <div :class="{
             'radio_hover': isHover === index,
             'radio_non-hover': isHover !== index
-          }">{{item}}</div>
+          }">{{item}}</div>-->
         </div>
 
       </div>

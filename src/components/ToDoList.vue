@@ -47,6 +47,17 @@ function getData(url: string) {
   });
 }
 
+function sortInsertItem(array, item) {
+  let i;
+  for (i = 0; i < array.length; i++) {
+    if (array[i].Number > item.Number) {
+      return;
+    }
+  }
+  array.splice(i, 0, item);
+  // console.log(array.map((item) => item.Number))
+}
+
 onMounted(() => {
   fetch(`http://localhost:3000/database/${props.path}/subject`)
       .then((response) => {
@@ -67,18 +78,13 @@ onMounted(() => {
                 getData(
                     `http://localhost:3000/database/${props.path}/${props.path}_${lab}`)
                     .then((data: Lab) => {
-                      // console.log(data); // Вывести полученные данные
-                      labs.value.push(data)
+                      sortInsertItem(labs.value, data)
                     })
                     .catch((error) => {
                       console.error(error); // Обработать ошибку, если возникла
                     })
           }
-          labs.value.sort(function (a, b) {
-            if (a.FileName < b.FileName) return 1;
-            if (a.FileName > b.FileName) return -1;
-            return 0;
-          })
+
           // console.log(labs.value)
         }
         else {
@@ -90,18 +96,13 @@ onMounted(() => {
             getData(
                 `http://localhost:3000/database/${props.path}/${props.path}_${visit}`)
                 .then((data: Visit) => {
-                  // console.log(data); // Вывести полученные данные
-                  visits.value.push(data)
+                  sortInsertItem(visits.value, data)
                 })
                 .catch((error) => {
                   console.error(error); // Обработать ошибку, если возникла
                 })
           }
-          visits.value.sort(function (a, b) {
-            if (a.FileName < b.FileName) return 1;
-            if (a.FileName > b.FileName) return -1;
-            return 0;
-          })
+
         }
         else {
           // isLabs.value = false
@@ -124,6 +125,11 @@ watch(() => submit.value.data, (newValue) => {
           for (let lab of labs.value) {
             if (lab.FileName === newValue.FileName) {
               lab = Object.assign(lab, newValue)
+            }
+          }
+          for (let visit of visits.value) {
+            if (visit.FileName === newValue.FileName) {
+              visit = Object.assign(visit, newValue)
             }
           }
         })
