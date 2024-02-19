@@ -1,5 +1,5 @@
 export class Subject {
-    constructor() {
+    constructor(title) {
         Object.defineProperty(this, "Title", {
             enumerable: true,
             configurable: true,
@@ -24,6 +24,7 @@ export class Subject {
             writable: true,
             value: []
         });
+        this.Title = title;
     }
 }
 export class SubjectElement {
@@ -58,6 +59,12 @@ export class SubjectElement {
             configurable: true,
             writable: true,
             value: ""
+        });
+        Object.defineProperty(this, "Number", {
+            enumerable: true,
+            configurable: true,
+            writable: true,
+            value: 0
         });
     }
 }

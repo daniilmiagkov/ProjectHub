@@ -8,12 +8,14 @@
             :Type = "item.Type"
             :isRadio = "item.Type"
             class='list__title-element'
+            :Index = "index"
+            :Info = "item.Title"
             :style="{ 'transition-delay': `${index * 0.05}s` }"
             :class="{
             // 'list__grid-element': index !== props.list.length - 1,
             'list__grid_hide': index === props.list.length - 1
           } "
-            :key="item.FileName"
+            :key="index"
 
         />
     </transition-group>
@@ -21,17 +23,18 @@
     <transition-group name="main-grid" tag="div"
                       v-bind:class="{ list__grid_show: isShow, list__grid_hide: !isShow} ">
       <Square
-          :key="item.FileName"
+          :key="index"
           v-for="(item, index) in props.list"
           :Type = "item.Type"
           :isRadio = "item.Type"
+          :Add="index === props.list.length - 1"
+          :Info = "item.Title"
           @click="openModal(item, index)"
           v-if="isShow"
           :class="{
             'list__grid-element': index !== props.list.length - 1,
             'list__grid-element-add': index === props.list.length - 1
           } "
-          :Add="index === props.list.length - 1"
           :style="{ 'transition-delay': `${index * 0.03}s` }"
       />
     </transition-group>
