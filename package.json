@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "nodemon backend/server.cjs",
     "dev": "concurrently \"vite\" \"nodemon backend/server.cjs\"",
-    "build": "vue-tsc && vite build",
+    "build": "vue-tsc --watch && vite build --watch",
     "preview": "vite preview"
   },
   "dependencies": {

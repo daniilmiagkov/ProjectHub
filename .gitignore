@@ -12,7 +12,7 @@ dist
 dist-ssr
 *.local
 backend/database
-
+illustrator
 # Editor directories and files
 .vscode/extensions.json
 !.vscode/extensions.json

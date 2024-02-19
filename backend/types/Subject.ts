@@ -3,9 +3,6 @@ export class Subject {
     Labs: Array<Lab> = [];
     Tasks: Array<Task> = [];
     Visits: Array<Visit> = [];
-    constructor(title: string) {
-        this.Title = title;
-    }
 }
 
 export class SubjectElement {

@@ -3,6 +3,7 @@
 <!--    <TodayList :class="{'blur': modal.show}"/>-->
     <AllToDoList
         :class="{'blur': modal.show}"
+        class="transition"
     />
     <EditTask
         @submit="handleSubmitEvent"></EditTask>
@@ -10,20 +11,23 @@
 </template>
 
 <script setup lang="ts">
-import AllToDoList from '@components/AllToDoList.vue'
+import AllToDoList from './components/AllToDoList.vue'
+/*
 import TodayList from "./components/TodayList.vue";
+*/
 import EditTask from "./components/EditTask.vue";
 import {provide, ref} from "vue";
-const modal = ref({
+import {Lab} from "../backend/types/Subject";
+const modal = ref<object>({
   show: false,
   data: null }
 );
-const submit = ref({
-  data: ""
+const submit = ref<object>({
+  data: Lab
 })
 provide('submit', submit);
 provide('modal', modal);
-function handleSubmitEvent(data) {
+function handleSubmitEvent(data: object) {
   submit.value.data = data
 }
 
@@ -34,8 +38,8 @@ function handleSubmitEvent(data) {
 body {
 }
 .blur {
-  filter: blur(4px);
-  transition: filter 0.5s linear;
+  filter: blur(2px);
+  //transition: filter 3s ease;
 }
 .app {
   margin: 20px;

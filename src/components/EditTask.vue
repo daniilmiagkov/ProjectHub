@@ -25,7 +25,7 @@
                  'input_not-edit': isEdit
                }"/>
       </label>
-<!--      <label class="input" for="input-file-method">
+      <label class="input" for="input-file-method">
         <span class="input__title">Методичка</span>
         <input
             class="input__input input_file"
@@ -42,7 +42,7 @@
             @change="loadFile(fileNameLab, $event)"
             v-bind:readonly="!isEdit"/>
         <span class="button-file" id="button-file">{{ fileNameLab.name }}</span>
-      </label>-->
+      </label>
 
       <label class="input" for="input-date">
         <span class="input__title">Дата сдачи</span>
@@ -63,7 +63,7 @@
             <Square
                 class="radio__text"
                 :Type = "item"
-                :isRadio = "isRadio"
+                :isRadio = "Type"
                 @click="changeRadio(item)"
             />
           </label>
@@ -91,22 +91,21 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import {inject, onMounted, ref, watch, defineEmits} from "vue";
 import Square from "./Square.vue";
+import {Lab} from "../../backend/types/Subject";
 const modal = inject('modal');
 const submit = inject('submit');
 const isHover = ref();
-let lab = ref({})
-let isEdit = ref(false);
-let labEdit = ref({})
-let input = ref({
-})
-let oldValue = ref({});
-let isRadio = ref();
+const lab = ref(new Lab())
+const isEdit = ref(false);
+const labEdit = ref({})
+const input = ref(new Lab())
+const oldValue = ref({});
+const Type = ref();
 const fileNameMethod = ref({name: ""});
 const fileNameLab = ref({name: ""});
-const emit = defineEmits();
 
 onMounted(()=> {
   watch(() => modal.value.data, (newValue, oldValue) => {
@@ -118,16 +117,9 @@ onMounted(()=> {
   watch(input, (newValue, oldValue) => {
   });
 })
-onMounted(() => {
-    console.log( document.getElementById(lab.Type))
-  // document.getElementById(lab.Type).checked = "checked";
-})
+
 function save() {
   isEdit.value = false;
-  // console.log(isEdit)
-  // app.update()
-  // console.log(input.value)
-
 }
 
 function submitForm(event) {
@@ -161,7 +153,7 @@ function submitForm(event) {
 }
 function changeRadio(item) {
   if (isEdit.value) {
-    isRadio.value = item;
+    Type.value = item;
     input.value.Type = item;
   }
 }
@@ -194,10 +186,10 @@ function loadFile(fileName, event) {
 }
 function handleShow() {
   // Ваш код для выполнения при отображении компонента
-  lab = modal.value.data;
-  isRadio.value = lab.Type;
-  input.value = Object.assign({}, lab)
-  oldValue.value = Object.assign({}, lab)
+  lab.value = modal.value.data;
+  Type.value = lab.value.Type;
+  input.value = Object.assign({}, lab.value)
+  oldValue.value = Object.assign({}, lab.value)
   // console.log(input.value, lab)
 
   // console.log("lab")
@@ -225,10 +217,6 @@ function handleShow() {
 
 }
 .radio__label{
-  //max-width: 60px;
-  //max-height: 60px;
-  //width: 100%;
-  //padding-top: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -254,12 +242,12 @@ function handleShow() {
   grid-template-columns: repeat(5, 60px);
   width: 80%;
   justify-items: center;
+  margin: 30px 0;
 
 }
 .radio__text {
   width: 3em;
   height: 3em;
-  margin-top: 100%;
   max-width: 60px;
   max-height: 60px;
   border-radius: 10px;
@@ -279,7 +267,7 @@ input[type='radio'] {
   margin: 10px auto;
   width: 80%;
   max-width: 500px;
-  height: 50%;
+  //height: 50%;
   position: fixed;
   top: 15%;
   z-index: 9000;

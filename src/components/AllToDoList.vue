@@ -1,17 +1,18 @@
 <template>
-  <div class="all-to-do-list">
+  <div class="all-to-do-list" id="all-to-do-list">
     <ToDoList
         v-for="(item, index) in listSubjects"  :key="index"
-        :path="item"/>
+        :path="item"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import {defineProps, ref, defineEmits} from "vue";
+import {ref, watch} from "vue";
 import ToDoList from "./ToDoList.vue";
 let listSubjects = ref([]);
 
-function getListSubjects() {
+  function getListSubjects() {
   fetch('http://localhost:3000/database/names')
       .then((response) => {
         if (!response.ok) {
@@ -37,13 +38,14 @@ getListSubjects()
 <style scoped lang="scss">
 @import "../css/colors.scss";
 .all-to-do-list {
+  transition: filter 1s ease;
+
   width: 100%;
   //justify-items: center;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 20px;
   align-items: start;
-
-
 }
+
 </style>
