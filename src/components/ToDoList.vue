@@ -113,14 +113,14 @@ onMounted(() => {
 })
 watch(() => submit.value.data, (newValue) => {
 
-  console.log("newValue", newValue, subject.value)
+  // console.log("newValue", newValue, subject.value)
   if (newValue.Subject === subject.value.Title) {
-    console.log("newValue", newValue)
+    // console.log("newValue", newValue)
 
     getData(
         `http://localhost:3000/database/${props.path}/${props.path}_${newValue.FileName}`)
         .then((data) => {
-          console.log(data); // Вывести полученные данные
+          // console.log(data); // Вывести полученные данные
           for (let lab of labs.value) {
             if (lab.FileName === newValue.FileName) {
               lab = Object.assign(lab, newValue)
@@ -157,7 +157,7 @@ function changeWidth() {
 
   width.value = (w - (i - 1) * 20) / i
   width.value = 200
-  console.log(w, i, width.value)
+  // console.log(w, i, width.value)
 }
 </script>
 
