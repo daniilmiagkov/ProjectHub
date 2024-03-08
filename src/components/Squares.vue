@@ -57,10 +57,10 @@ const openModal = (item: Lab, index: number) => {
   modal.value.data = item;
   // console.log(item);
   if (index === props.list.length -1) {
-    const lab = Object.assign({}, item)
+    const lab = item
     const str = lab.FileName.split('_')
     lab.FileName = str[0] + '_' + (parseInt(str[1]) + 1)
-    lab.Title = str[0] + '_' + (parseInt(str[1]) + 1)
+    lab.Title = str[0] + '_'
 
     props.list.push(lab);
   }

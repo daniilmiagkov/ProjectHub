@@ -8,10 +8,10 @@
         title="Лабораторные"
         :list="labs"
     ></Squares>
-    <Squares
+<!--    <Squares
         title="Посещения"
       :list="visits">
-    </Squares>
+    </Squares>-->
   </div>
 </template>
 
@@ -50,8 +50,8 @@ function getData(url: string) {
 function sortInsertItem(array, item) {
   let i;
   for (i = 0; i < array.length; i++) {
-    if (array[i].Number > item.Number) {
-      return;
+    if (array[i].Number> item.Number) {
+      break;
     }
   }
   array.splice(i, 0, item);
@@ -78,6 +78,7 @@ onMounted(() => {
                 getData(
                     `http://localhost:3000/database/${props.path}/${props.path}_${lab}`)
                     .then((data: Lab) => {
+                      // console.log(data)
                       sortInsertItem(labs.value, data)
                     })
                     .catch((error) => {
@@ -149,7 +150,7 @@ function changeWidth() {
   const w = document.getElementById('all-to-do-list').clientWidth;
   let a;
   let i;
-  for (i = 1; i <= 6; i++) {
+  for (i = 1; i <= 10; i++) {
     if ((i - 1) * 20 + 350 * (i) <= w) {
       // console.log((i - 1) * 20 + 350 * (i), w, (w - (i - 1) * 20) / i)
       width.value = (w - (i - 1) * 20) / i
