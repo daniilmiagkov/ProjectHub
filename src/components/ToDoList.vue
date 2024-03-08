@@ -149,7 +149,7 @@ function changeWidth() {
   const w = document.getElementById('all-to-do-list').clientWidth;
   let a;
   let i;
-  for (i = 1; i <= 6; i++) {
+  for (i = 1; i <= 10; i++) {
     if ((i - 1) * 20 + 350 * (i) <= w) {
       // console.log((i - 1) * 20 + 350 * (i), w, (w - (i - 1) * 20) / i)
       width.value = (w - (i - 1) * 20) / i
